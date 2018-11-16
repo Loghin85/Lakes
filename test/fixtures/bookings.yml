@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  UserId: MyString
+  NoOfPersons: MyString
+  TripId: MyString
+  Date: 2018-11-16
+  Price: 9.99
+
+two:
+  UserId: MyString
+  NoOfPersons: MyString
+  TripId: MyString
+  Date: 2018-11-16
+  Price: 9.99

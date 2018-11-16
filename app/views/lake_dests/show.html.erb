@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @lake_dest.Name %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @lake_dest.Area %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @lake_dest.District %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @lake_dest.Lat %>
+</p>
+
+<p>
+  <strong>Long:</strong>
+  <%= @lake_dest.Long %>
+</p>
+
+<p>
+  <strong>River:</strong>
+  <%= @lake_dest.River %>
+</p>
+
+<p>
+  <strong>Details url:</strong>
+  <%= @lake_dest.Details_Url %>
+</p>
+
+<p>
+  <strong>Altitude:</strong>
+  <%= @lake_dest.Altitude %>
+</p>
+
+<p>
+  <strong>Alkalinity:</strong>
+  <%= @lake_dest.Alkalinity %>
+</p>
+
+<p>
+  <strong>Depth:</strong>
+  <%= @lake_dest.Depth %>
+</p>
+
+<%= link_to 'Edit', edit_lake_dest_path(@lake_dest) %> |
+<%= link_to 'Back', lake_dests_path %>

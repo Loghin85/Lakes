@@ -1,0 +1,67 @@
+<%= form_with(model: lake_dest, local: true) do |form| %>
+  <% if lake_dest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lake_dest.errors.count, "error") %> prohibited this lake_dest from being saved:</h2>
+
+      <ul>
+      <% lake_dest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :Name %>
+    <%= form.text_field :Name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Area %>
+    <%= form.text_field :Area %>
+  </div>
+
+  <div class="field">
+    <%= form.label :District %>
+    <%= form.text_field :District %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Lat %>
+    <%= form.text_field :Lat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Long %>
+    <%= form.text_field :Long %>
+  </div>
+
+  <div class="field">
+    <%= form.label :River %>
+    <%= form.text_field :River %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Details_Url %>
+    <%= form.text_field :Details_Url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Altitude %>
+    <%= form.text_field :Altitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Alkalinity %>
+    <%= form.text_field :Alkalinity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Depth %>
+    <%= form.text_field :Depth %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

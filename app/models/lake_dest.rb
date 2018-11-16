@@ -1,0 +1,2 @@
+class LakeDest < ApplicationRecord
+end

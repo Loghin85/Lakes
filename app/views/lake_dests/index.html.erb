@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lake Dests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Area</th>
+      <th>District</th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th>River</th>
+      <th>Details url</th>
+      <th>Altitude</th>
+      <th>Alkalinity</th>
+      <th>Depth</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lake_dests.each do |lake_dest| %>
+      <tr>
+        <td><%= lake_dest.Name %></td>
+        <td><%= lake_dest.Area %></td>
+        <td><%= lake_dest.District %></td>
+        <td><%= lake_dest.Lat %></td>
+        <td><%= lake_dest.Long %></td>
+        <td><%= lake_dest.River %></td>
+        <td><%= lake_dest.Details_Url %></td>
+        <td><%= lake_dest.Altitude %></td>
+        <td><%= lake_dest.Alkalinity %></td>
+        <td><%= lake_dest.Depth %></td>
+        <td><%= link_to 'Show', lake_dest %></td>
+        <td><%= link_to 'Edit', edit_lake_dest_path(lake_dest) %></td>
+        <td><%= link_to 'Destroy', lake_dest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lake Dest', new_lake_dest_path %>
