@@ -21,7 +21,7 @@ namespace :users do
       )
     end
   
-   #give each user an addresses and credit card
+   #give each user a credit card
     names = User.all
     names.each do | user|
       year = [2020, 2021, 2022, 2023]
