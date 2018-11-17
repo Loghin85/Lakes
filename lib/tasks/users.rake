@@ -19,11 +19,13 @@ namespace :users do
 			Phone: "-",
 			Privilege: "Admin",
 			CardRegistered: "-",
-			Password: "Pass#123"
+			password: "Pass#123",
+			password_confirmation: "Pass#123"
 		)
 	
 	#create users
     20.times do |index|
+		password = Faker::Internet.password(10, 20, true, true)
       User.create!(
         Fname: Faker::Name.first_name,
         Lname: Faker::Name.last_name,
@@ -35,7 +37,8 @@ namespace :users do
 		Phone: Faker::PhoneNumber.phone_number,
 		Privilege: "User",
 		CardRegistered: "Yes",
-		Password: Faker::Internet.password(10, 20, true, true)
+		password: password,
+		password_confirmation: password
       )
     end
   

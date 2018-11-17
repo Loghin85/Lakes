@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_214607) do
+ActiveRecord::Schema.define(version: 2018_11_17_230626) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "UserId"
@@ -69,9 +69,10 @@ ActiveRecord::Schema.define(version: 2018_11_17_214607) do
     t.string "Phone"
     t.string "Privilege"
     t.string "CardRegistered"
-    t.string "Password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["Email"], name: "index_users_on_Email", unique: true
   end
 
 end

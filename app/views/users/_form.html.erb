@@ -65,6 +65,11 @@
     <%= form.label :Password %>
     <%= form.text_field :Password %>
   </div>
+  
+  <div class="field">
+    <%= f.label :Password_confirmation, "Confirmation" %>
+    <%= f.password_field :Password_confirmation %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
