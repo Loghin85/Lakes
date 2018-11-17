@@ -1,18 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Name:</strong>
+  <%= @trip.Name %>
+</p>
+
+<p>
   <strong>Lakes:</strong>
   <%= @trip.Lakes %>
 </p>
 
 <p>
-  <strong>Distance:</strong>
-  <%= @trip.Distance %>
-</p>
-
-<p>
-  <strong>Duration:</strong>
-  <%= @trip.Duration %>
+  <strong>Date:</strong>
+  <%= @trip.Date %>
 </p>
 
 <p>
@@ -21,8 +21,8 @@
 </p>
 
 <p>
-  <strong>Avalableplaces:</strong>
-  <%= @trip.AvalablePlaces %>
+  <strong>Availableplaces:</strong>
+  <%= @trip.AvailablePlaces %>
 </p>
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |

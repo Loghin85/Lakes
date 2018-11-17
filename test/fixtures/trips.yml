@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  Name: MyString
   Lakes: MyString
-  Distance: MyString
-  Duration: MyString
+  Date: 2018-11-17
   Price: 9.99
-  AvalablePlaces: MyString
+  AvailablePlaces: 1
 
 two:
+  Name: MyString
   Lakes: MyString
-  Distance: MyString
-  Duration: MyString
+  Date: 2018-11-17
   Price: 9.99
-  AvalablePlaces: MyString
+  AvailablePlaces: 1

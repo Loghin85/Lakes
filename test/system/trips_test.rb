@@ -14,10 +14,10 @@ class TripsTest < ApplicationSystemTestCase
     visit trips_url
     click_on "New Trip"
 
-    fill_in "Avalableplaces", with: @trip.AvalablePlaces
-    fill_in "Distance", with: @trip.Distance
-    fill_in "Duration", with: @trip.Duration
+    fill_in "Availableplaces", with: @trip.AvailablePlaces
+    fill_in "Date", with: @trip.Date
     fill_in "Lakes", with: @trip.Lakes
+    fill_in "Name", with: @trip.Name
     fill_in "Price", with: @trip.Price
     click_on "Create Trip"
 
@@ -29,10 +29,10 @@ class TripsTest < ApplicationSystemTestCase
     visit trips_url
     click_on "Edit", match: :first
 
-    fill_in "Avalableplaces", with: @trip.AvalablePlaces
-    fill_in "Distance", with: @trip.Distance
-    fill_in "Duration", with: @trip.Duration
+    fill_in "Availableplaces", with: @trip.AvailablePlaces
+    fill_in "Date", with: @trip.Date
     fill_in "Lakes", with: @trip.Lakes
+    fill_in "Name", with: @trip.Name
     fill_in "Price", with: @trip.Price
     click_on "Update Trip"
 

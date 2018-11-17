@@ -1,11 +1,12 @@
 class CreateTrips < ActiveRecord::Migration[5.2]
   def change
+	drop_table(:trips, if_exists: true)
     create_table :trips do |t|
+      t.string :Name
       t.string :Lakes
-      t.string :Distance
-      t.string :Duration
+      t.date :Date
       t.decimal :Price
-      t.string :AvalablePlaces
+      t.integer :AvailablePlaces
 
       t.timestamps
     end

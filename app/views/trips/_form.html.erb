@@ -12,18 +12,18 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :Name %>
+    <%= form.text_field :Name %>
+  </div>
+
+  <div class="field">
     <%= form.label :Lakes %>
     <%= form.text_field :Lakes %>
   </div>
 
   <div class="field">
-    <%= form.label :Distance %>
-    <%= form.text_field :Distance %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Duration %>
-    <%= form.text_field :Duration %>
+    <%= form.label :Date %>
+    <%= form.date_select :Date %>
   </div>
 
   <div class="field">
@@ -32,8 +32,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :AvalablePlaces %>
-    <%= form.text_field :AvalablePlaces %>
+    <%= form.label :AvailablePlaces %>
+    <%= form.number_field :AvailablePlaces %>
   </div>
 
   <div class="actions">

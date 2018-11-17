@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  resources :trips
   resources :users
   resources :credit_cards
   resources :lake_dests
-  resources :trips
   resources :bookings
   get 'lakes/index'
   root 'lakes#index'
