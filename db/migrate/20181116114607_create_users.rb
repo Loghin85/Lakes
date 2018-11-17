@@ -1,6 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[5.2]
   def change
-	drop_table(:users, if_exists: true, cascade: true)
+	execute 'DROP TABLE if exists users cascade;'
     create_table :users do |t|
       t.string :Fname
       t.string :Lname
