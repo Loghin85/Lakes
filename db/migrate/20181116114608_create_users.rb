@@ -12,7 +12,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :Phone
       t.string :Privilege
       t.string :CardRegistered
-      t.string :Password_digest
+      t.string :password_digest
       t.timestamps
     end
 	add_index :users, :Email, unique: true
