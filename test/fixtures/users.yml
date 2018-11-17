@@ -10,6 +10,8 @@ one:
   Country: MyString
   Phone: MyString
   Privilege: MyString
+  CardRegistered: MyString
+  Password: MyString
 
 two:
   Fname: MyString
@@ -21,3 +23,5 @@ two:
   Country: MyString
   Phone: MyString
   Privilege: MyString
+  CardRegistered: MyString
+  Password: MyString

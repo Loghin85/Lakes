@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :trips
   resources :users
+  resources :trips
   resources :credit_cards
   resources :lake_dests
   resources :bookings

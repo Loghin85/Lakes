@@ -14,6 +14,8 @@
       <th>Country</th>
       <th>Phone</th>
       <th>Privilege</th>
+      <th>Cardregistered</th>
+      <th>Password</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,6 +32,8 @@
         <td><%= user.Country %></td>
         <td><%= user.Phone %></td>
         <td><%= user.Privilege %></td>
+        <td><%= user.CardRegistered %></td>
+        <td><%= user.Password %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

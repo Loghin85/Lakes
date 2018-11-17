@@ -7,19 +7,35 @@ namespace :users do
 	Trip.destroy_all
 	Booking.destroy_all
 	
+	#create admin
+		User.create!(
+			Fname: "Admin",
+			Lname: "1",
+			Email: "admin@abdn.ac.uk",
+			Address: "-",
+			Postcode: "-",
+			City: "-",
+			Country: "-",
+			Phone: "-",
+			Privilege: "Admin",
+			CardRegistered: "-",
+			Password: "Pass#123"
+		)
+	
 	#create users
     20.times do |index|
       User.create!(
         Fname: Faker::Name.first_name,
         Lname: Faker::Name.last_name,
-		Email: Faker::Internet.email,
+		Email: Faker::Internet.free_email,
         Address: Faker::Address.street_address,
 		Postcode: Faker::Address.postcode,
 		City: Faker::Address.city,
 		Country: Faker::Address.country,
 		Phone: Faker::PhoneNumber.phone_number,
-		Privilege: "User"
-      
+		Privilege: "User",
+		CardRegistered: "Yes",
+		Password: Faker::Internet.password(10, 20, true, true)
       )
     end
   
@@ -38,6 +54,7 @@ namespace :users do
     end
     p "users created"
 	
+	#create trips
 	lakes = LakeDest.all
 	lakes.each do |lake|
 		Trip.create!(
@@ -85,18 +102,24 @@ namespace :users do
 	end
 	p "trips created"
 	
+	#create bookings
 	users = User.all
 	trips = Trip.all
-	15.times do |booking|
+	40.times do |booking|
 		user = users.sample
 		trip = trips.sample
-		persons = Faker::Number.between(1, 10)
+		persons = rand(1..10)
+		while trip.AvailablePlaces<persons
+			persons = rans(1..10)
+		end
+		trip.AvailablePlaces -= persons
+		trip.save!
 		Booking.create!(
 			UserId: user.id,
-			NoOfPersons: 2,
+			NoOfPersons: persons,
 			TripId: trip.id,
 			Date: trip.Date,
-			Price: trip.Price*2
+			Price: trip.Price*persons
 		)
 	end
 	p "bookings created"

@@ -15,11 +15,13 @@ class UsersTest < ApplicationSystemTestCase
     click_on "New User"
 
     fill_in "Address", with: @user.Address
+    fill_in "Cardregistered", with: @user.CardRegistered
     fill_in "City", with: @user.City
     fill_in "Country", with: @user.Country
     fill_in "Email", with: @user.Email
     fill_in "Fname", with: @user.Fname
     fill_in "Lname", with: @user.Lname
+    fill_in "Password", with: @user.Password
     fill_in "Phone", with: @user.Phone
     fill_in "Postcode", with: @user.Postcode
     fill_in "Privilege", with: @user.Privilege
@@ -34,11 +36,13 @@ class UsersTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Address", with: @user.Address
+    fill_in "Cardregistered", with: @user.CardRegistered
     fill_in "City", with: @user.City
     fill_in "Country", with: @user.Country
     fill_in "Email", with: @user.Email
     fill_in "Fname", with: @user.Fname
     fill_in "Lname", with: @user.Lname
+    fill_in "Password", with: @user.Password
     fill_in "Phone", with: @user.Phone
     fill_in "Postcode", with: @user.Postcode
     fill_in "Privilege", with: @user.Privilege

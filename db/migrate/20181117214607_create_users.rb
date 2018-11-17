@@ -1,5 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[5.2]
   def change
+	drop_table(:users, if_exists: true)
     create_table :users do |t|
       t.string :Fname
       t.string :Lname
@@ -10,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :Country
       t.string :Phone
       t.string :Privilege
+      t.string :CardRegistered
+      t.string :Password
 
       t.timestamps
     end
