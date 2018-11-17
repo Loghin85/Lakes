@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_131509) do
+ActiveRecord::Schema.define(version: 2018_11_16_235822) do
 
   create_table "bookings", force: :cascade do |t|
     t.string "UserId"
@@ -22,22 +22,18 @@ ActiveRecord::Schema.define(version: 2018_11_16_131509) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "lake_dests", force: :cascade do |t|
-    t.string "Name"
-    t.decimal "Area"
-    t.string "District"
-    t.decimal "Lat"
-    t.decimal "Long"
-    t.string "River"
-    t.string "Details_Url"
-    t.string "Altitude"
-    t.string "Alkalinity"
-    t.string "Depth"
+  create_table "credit_cards", force: :cascade do |t|
+    t.string "number"
+    t.string "exp_date"
+    t.string "name_on_card"
+    t.string "organisation"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_credit_cards_on_user_id"
   end
 
-  create_table "lakes", force: :cascade do |t|
+  create_table "lake_dests", force: :cascade do |t|
     t.string "Name"
     t.decimal "Area"
     t.string "District"
