@@ -5,9 +5,14 @@ Rails.application.configure do
   config.cache_classes = true
 	
   # Heroku images load
-  config.serve_static_assets = true
-  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
   config.assets.compile = true
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+
+if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+end
   
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
