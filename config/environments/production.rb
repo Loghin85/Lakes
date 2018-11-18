@@ -10,10 +10,12 @@ Rails.application.configure do
   config.assets.compile = true
   config.assets.digest = true
 
+config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+
 if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
 end
   
   # Eager load code on boot. This eager loads most of Rails and
