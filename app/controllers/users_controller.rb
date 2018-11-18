@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :logged_in_user, only: [:new, :create]
 
   # GET /users
   # GET /users.json
@@ -25,16 +26,14 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
+	p @user
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+		@user.send_activation_email
+		flash[:info] = "Please check your email to activate your account."
+		redirect_to root_url
       else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render 'new'
       end
-    end
   end
 
   # PATCH/PUT /users/1
@@ -60,6 +59,10 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def allowed_params
+	params.require(:user).permit(:email, :password, :password_confirmation)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +72,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:Fname, :Lname, :Email, :Address, :Postcode, :City, :Country, :Phone, :Privilege, :CardRegistered, :Password, :Password_confirmation)
+      params.require(:user).permit(:Fname, :Lname, :Email, :Address, :Postcode, :City, :Country, :Phone, :Privilege, :CardRegistered, :password, :password_confirmation)
     end
 end

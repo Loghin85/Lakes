@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :credit_cards
   resources :lake_dests
   resources :bookings
+  resources :account_activations, only: [:edit]
+  default_url_options :host => "example.com"
   get 'lakes/index'
   root 'lakes#index'
   get '/login', to: 'sessions#new'

@@ -12,15 +12,17 @@ namespace :users do
 			Fname: "Admin",
 			Lname: "1",
 			Email: "admin@abdn.ac.uk",
+			password: 'Pass#123',
+			password_confirmation: 'Pass#123',
 			Address: "-",
 			Postcode: "-",
 			City: "-",
 			Country: "-",
 			Phone: "-",
 			Privilege: "Admin",
-			CardRegistered: "-",
-			password: "Pass#123",
-			password_confirmation: "Pass#123"
+			activated: true,
+            activated_at: Time.zone.now
+
 		)
 	
 	#create users
@@ -35,10 +37,12 @@ namespace :users do
 		City: Faker::Address.city,
 		Country: Faker::Address.country,
 		Phone: Faker::PhoneNumber.phone_number,
-		Privilege: "User",
-		CardRegistered: "Yes",
+		CardRegistered: true,
 		password: password,
-		password_confirmation: password
+		password_confirmation: password,
+		activated: true,
+		activated_at: Time.zone.now
+
       )
     end
   

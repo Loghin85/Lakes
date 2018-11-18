@@ -10,8 +10,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :City
       t.string :Country
       t.string :Phone
-      t.string :Privilege
-      t.string :CardRegistered
+      t.string :Privilege, default: "User"
+      t.boolean :CardRegistered, default: false
       t.string :password_digest
       t.timestamps
     end
