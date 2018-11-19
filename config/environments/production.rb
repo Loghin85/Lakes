@@ -10,6 +10,17 @@ Rails.application.configure do
   config.assets.compile = true
   config.assets.digest = true
 
+  # Sendrail configuration
+  ActionMailer::Base.smtp_settings = {
+  :user_name => ENV['SENDGRID_USERNAME'],
+  :password => ENV['SENDGRID_PASSWORD'],
+  :domain => 'yourdomain.com',
+  :address => 'smtp.sendgrid.net',
+  :port => 587,
+  :authentication => :plain,
+  :enable_starttls_auto => true
+  }
+  
 config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
 if ENV["RAILS_LOG_TO_STDOUT"].present?
