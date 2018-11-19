@@ -39,6 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'faker'
 gem 'geocoder'
 gem 'bootstrap'
+gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'sendgrid-ruby'
 

@@ -1,5 +1,7 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  skip_before_action :logged_in_user, only: [:create, :show, :new, :destroy]
+  skip_before_action :admin_user, only: [:create,:show, :new, :destroy]
 
   # GET /bookings
   # GET /bookings.json
@@ -40,25 +42,35 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
-    respond_to do |format|
-      if @booking.update(booking_params)
-        format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
-        format.json { render :show, status: :ok, location: @booking }
-      else
-        format.html { render :edit }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
-      end
-    end
+	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
+		flash[:danger] = "You can't do that you naughty user..."
+		redirect_to root_url
+	else
+		respond_to do |format|
+		  if @booking.update(booking_params)
+			format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
+			format.json { render :show, status: :ok, location: @booking }
+		  else
+			format.html { render :edit }
+			format.json { render json: @booking.errors, status: :unprocessable_entity }
+		  end
+		end
+	end
   end
 
   # DELETE /bookings/1
   # DELETE /bookings/1.json
   def destroy
-    @booking.destroy
-    respond_to do |format|
-      format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
+		flash[:danger] = "You can't do that you naughty user..."
+		redirect_to root_url
+	else
+		@booking.destroy
+		respond_to do |format|
+		  format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
+		  format.json { head :no_content }
+		end
+	end
   end
 
   private

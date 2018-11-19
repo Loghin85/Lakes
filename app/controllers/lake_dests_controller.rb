@@ -1,6 +1,7 @@
 class LakeDestsController < ApplicationController
   before_action :set_lake_dest, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user
+  skip_before_action :logged_in_user, only: [:show, :index]
+  skip_before_action :admin_user, only: [:show, :index]
 
   # GET /lake_dests
   # GET /lake_dests.json

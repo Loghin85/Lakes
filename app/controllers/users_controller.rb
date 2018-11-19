@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user, only: [:new, :create]
+  skip_before_action :logged_in_user, only: [:create, :show, :new, :destroy]
+  skip_before_action :admin_user, only: [:create,:show, :new, :destroy]
 
   # GET /users
   # GET /users.json
@@ -39,25 +40,35 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+	if !logged_in? || (!admin? && !(current_user == @user))
+		flash[:danger] = "You can't do that you naughty user..."
+		redirect_to root_url
+	else
+		respond_to do |format|
+		  if @user.update(user_params)
+			format.html { redirect_to @user, notice: 'User was successfully updated.' }
+			format.json { render :show, status: :ok, location: @user }
+		  else
+			format.html { render :edit }
+			format.json { render json: @user.errors, status: :unprocessable_entity }
+		  end
+		end
+	end
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+ 	if !logged_in? || (!admin? && !(current_user == @user))
+		flash[:danger] = "You can't do that you naughty user..."
+		redirect_to root_url
+	else
+		@user.destroy
+		respond_to do |format|
+		  format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+		  format.json { head :no_content }
+		end
+	end
   end
   
   def allowed_params
