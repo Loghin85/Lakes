@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  skip_before_action :logged_in_user
 
   # GET /trips
   # GET /trips.json
