@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :logged_in_user, only: [:new, :create]
-  skip_before_action :admin_user, only: [:new, :create]
+  skip_before_action :admin_user, only: [:new, :create, :destroy]
   def new
   end
   def create
