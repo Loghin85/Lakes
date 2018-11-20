@@ -12,7 +12,7 @@ class BookingsController < ApplicationController
   # GET /bookings/1
   # GET /bookings/1.json
   def show
-	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
+	if !logged_in? || (!admin? && !(current_user.booking.find(params[:id]).include? @booking))
 		naughty_user
 	end
   end
@@ -45,7 +45,7 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
-	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
+	if !logged_in? || (!admin? && !(current_user.booking.find(params[:id]).include? @booking))
 		naughty_user
 	else
 		respond_to do |format|
@@ -63,7 +63,7 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1
   # DELETE /bookings/1.json
   def destroy
-	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
+	if !logged_in? || (!admin? && !(current_user.booking.find(params[:id]).include? @booking))
 		naughty_user
 	else
 		@booking.destroy
