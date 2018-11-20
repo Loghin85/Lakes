@@ -132,7 +132,7 @@ namespace :users do
 		trip = trips.sample
 		persons = rand(1..10)
 		while trip.AvailablePlaces<persons
-			persons = rans(1..10)
+			persons = rand(1..10)
 		end
 		trip.AvailablePlaces -= persons
 		trip.save!
