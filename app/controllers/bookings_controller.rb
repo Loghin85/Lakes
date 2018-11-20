@@ -12,6 +12,9 @@ class BookingsController < ApplicationController
   # GET /bookings/1
   # GET /bookings/1.json
   def show
+	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
+		naughty_user
+	end
   end
 
   # GET /bookings/new
@@ -43,8 +46,7 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/1.json
   def update
 	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
-		flash[:danger] = "You can't do that you naughty user..."
-		redirect_to root_url
+		naughty_user
 	else
 		respond_to do |format|
 		  if @booking.update(booking_params)
@@ -62,8 +64,7 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1.json
   def destroy
 	if !logged_in? || (!admin? && !(current_user.bookings.find(params[:id]).include? @booking))
-		flash[:danger] = "You can't do that you naughty user..."
-		redirect_to root_url
+		naughty_user
 	else
 		@booking.destroy
 		respond_to do |format|

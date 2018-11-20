@@ -12,6 +12,9 @@ class CreditCardsController < ApplicationController
   # GET /credit_cards/1
   # GET /credit_cards/1.json
   def show
+	if !logged_in? || (!admin? && !(current_user.CreditCard.find(params[:id]).include? @credit_card))
+		naughty_user
+	end
   end
 
   # GET /credit_cards/new
@@ -45,8 +48,7 @@ class CreditCardsController < ApplicationController
   # PATCH/PUT /credit_cards/1.json
   def update
 	if !logged_in? || (!admin? && !(current_user.CreditCard.find(params[:id]).include? @credit_card))
-		flash[:danger] = "You can't do that you naughty user..."
-		redirect_to root_url
+		naughty_user
 	else
 		@credit_card.exp_date = params[:exp_date][:year].to_s + "/" + params[:exp_date][:month].to_s
 		
@@ -66,8 +68,7 @@ class CreditCardsController < ApplicationController
   # DELETE /credit_cards/1.json
   def destroy
 	if !logged_in? || (!admin? && !(current_user.CreditCard.find(params[:id]).include? @credit_card))
-		flash[:danger] = "You can't do that you naughty user..."
-		redirect_to root_url
+		naughty_user
 	else
 		@credit_card.destroy
 		respond_to do |format|

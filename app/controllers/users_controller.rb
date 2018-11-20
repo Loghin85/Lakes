@@ -12,6 +12,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+	if !logged_in? || (!admin? && !(current_user == @user))
+		naughty_user
+	end
   end
 
   # GET /users/new
@@ -41,8 +44,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
 	if !logged_in? || (!admin? && !(current_user == @user))
-		flash[:danger] = "You can't do that you naughty user..."
-		redirect_to root_url
+		naughty_user
 	else
 		respond_to do |format|
 		  if @user.update(user_params)
@@ -60,8 +62,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
  	if !logged_in? || (!admin? && !(current_user == @user))
-		flash[:danger] = "You can't do that you naughty user..."
-		redirect_to root_url
+		naughty_user
 	else
 		@user.destroy
 		respond_to do |format|
