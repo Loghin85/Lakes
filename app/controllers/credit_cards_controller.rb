@@ -71,7 +71,10 @@ class CreditCardsController < ApplicationController
 	else
 		@credit_card.destroy
 		respond_to do |format|
-		  format.html { redirect_to credit_cards_url, notice: 'Credit card was successfully destroyed.' }
+		  if admin?
+			format.html { redirect_to credit_cards_url, notice: 'Credit card was successfully destroyed.' }
+		  else
+			format.html { redirect_to root_url, notice: 'Credit card was successfully destroyed.' }
 		  format.json { head :no_content }
 		end
 	end

@@ -67,7 +67,10 @@ class BookingsController < ApplicationController
 	else
 		@booking.destroy
 		respond_to do |format|
-		  format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
+		  if admin?
+			format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
+		  else
+			format.html { redirect_to root_url, notice: 'Booking was successfully destroyed.' }
 		  format.json { head :no_content }
 		end
 	end

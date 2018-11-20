@@ -1,4 +1,6 @@
 class AccountActivationsController < ApplicationController
+  skip_before_action :logged_in_user
+  skip_before_action :admin_user
 
   def edit
     user = User.find_by(Email: params[:email])
