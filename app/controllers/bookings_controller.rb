@@ -71,6 +71,7 @@ class BookingsController < ApplicationController
 			format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
 		  else
 			format.html { redirect_to root_url, notice: 'Booking was successfully destroyed.' }
+		  end
 		  format.json { head :no_content }
 		end
 	end

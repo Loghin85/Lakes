@@ -75,6 +75,7 @@ class CreditCardsController < ApplicationController
 			format.html { redirect_to credit_cards_url, notice: 'Credit card was successfully destroyed.' }
 		  else
 			format.html { redirect_to root_url, notice: 'Credit card was successfully destroyed.' }
+		  end
 		  format.json { head :no_content }
 		end
 	end
