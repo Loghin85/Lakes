@@ -30,11 +30,14 @@
     <%= form.label :organisation %>
     <%= form.select :organisation, CreditCard.organisations.keys, prompt: 'Select a card type' %>
   </div>
-
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.collection_select( :user_id, @users, :id, :Lname ) %>
-  </div>
+  <%if admin?%>
+	  <div class="field">
+		<%= form.label :customer_id %>
+		<%= form.collection_select( :user_id, @users, :id, :Lname ) %>
+	  </div>
+  <%else%>
+	<%= form.hidden_field :user_id, :value => current_user.id %>
+  <%end%>
 
   <div class="actions">
     <%= form.submit %>

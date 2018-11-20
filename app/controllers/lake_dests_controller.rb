@@ -30,7 +30,8 @@ class LakeDestsController < ApplicationController
 
     respond_to do |format|
       if @lake_dest.save
-        format.html { redirect_to @lake_dest, notice: 'Lake dest was successfully created.' }
+        format.html { redirect_to @lake_dest
+					flash[:info] = 'Lake dest was successfully created.' }
         format.json { render :show, status: :created, location: @lake_dest }
       else
         format.html { render :new }
@@ -44,7 +45,8 @@ class LakeDestsController < ApplicationController
   def update
     respond_to do |format|
       if @lake_dest.update(lake_dest_params)
-        format.html { redirect_to @lake_dest, notice: 'Lake dest was successfully updated.' }
+        format.html { redirect_to @lake_dest
+					flash[:info] = 'Lake dest was successfully updated.' }
         format.json { render :show, status: :ok, location: @lake_dest }
       else
         format.html { render :edit }
@@ -58,7 +60,8 @@ class LakeDestsController < ApplicationController
   def destroy
     @lake_dest.destroy
     respond_to do |format|
-      format.html { redirect_to lake_dests_url, notice: 'Lake dest was successfully destroyed.' }
+      format.html { redirect_to lake_dests_url
+					flash[:info] = 'Lake dest was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

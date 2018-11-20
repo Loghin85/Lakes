@@ -22,7 +22,22 @@ namespace :users do
 			Privilege: "Admin",
 			activated: true,
             activated_at: Time.zone.now
-
+		)
+	#create user
+		User.create!(
+			Fname: "User",
+			Lname: "1",
+			Email: "user@abdn.ac.uk",
+			password: 'Pass#123',
+			password_confirmation: 'Pass#123',
+			Address: "-",
+			Postcode: "-",
+			City: "-",
+			Country: "-",
+			Phone: "-",
+			Privilege: "User",
+			activated: true,
+            activated_at: Time.zone.now
 		)
 	
 	#create users
@@ -122,9 +137,9 @@ namespace :users do
 		trip.AvailablePlaces -= persons
 		trip.save!
 		Booking.create!(
-			UserId: user.id,
+			user_id: user.id,
 			NoOfPersons: persons,
-			TripId: trip.id,
+			trip_id: trip.id,
 			Date: trip.Date,
 			Price: trip.Price*persons
 		)

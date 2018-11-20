@@ -1,18 +1,25 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user, only: [:create, :show, :new, :destroy]
-  skip_before_action :admin_user, only: [:create,:show, :new, :destroy]
+  skip_before_action :logged_in_user, only: [:index, :create, :show, :new, :destroy]
+  skip_before_action :admin_user, only: [:index, :create,:show, :new, :destroy]
 
   # GET /bookings
   # GET /bookings.json
   def index
-    @bookings = Booking.all
+	if admin?
+		@bookings = Booking.all
+	else
+		@bookings = Booking.where("user_id = "+current_user.id.to_s)
+	end
+	if @bookings.empty?
+		flash.now[:info]='You have no bookings yet'
+	end
   end
 
   # GET /bookings/1
   # GET /bookings/1.json
   def show
-	if !logged_in? || (!admin? && !(current_user.booking.find(params[:id]).include? @booking))
+	if !logged_in? || (!admin? && !(current_user.id == @booking.user_id))
 		naughty_user
 	end
   end
@@ -33,7 +40,8 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+        format.html { redirect_to @booking
+					flash[:info] = 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }
@@ -45,12 +53,13 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
-	if !logged_in? || (!admin? && !(current_user.booking.find(params[:id]).include? @booking))
+	if !logged_in? || (!admin? && !(current_user.id == @booking.user_id))
 		naughty_user
 	else
 		respond_to do |format|
 		  if @booking.update(booking_params)
-			format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
+			format.html { redirect_to @booking
+						flash[:info] = 'Booking was successfully updated.' }
 			format.json { render :show, status: :ok, location: @booking }
 		  else
 			format.html { render :edit }
@@ -63,13 +72,14 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1
   # DELETE /bookings/1.json
   def destroy
-	if !logged_in? || (!admin? && !(current_user.booking.find(params[:id]).include? @booking))
+	if !logged_in? || (!admin? && !(current_user.id == @booking.user_id))
 		naughty_user
 	else
 		@booking.destroy
 		respond_to do |format|
 		  if admin?
-			format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
+			format.html { redirect_to bookings_url
+						flash[:info] = 'Booking was successfully destroyed.' }
 		  else
 			format.html { redirect_to root_url, notice: 'Booking was successfully destroyed.' }
 		  end

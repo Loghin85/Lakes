@@ -1,18 +1,25 @@
 class CreditCardsController < ApplicationController
   before_action :set_credit_card, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user, only: [:create, :show, :new, :destroy]
-  skip_before_action :admin_user, only: [:create,:show, :new, :destroy]
+  skip_before_action :logged_in_user, only: [:index, :create, :show, :new, :destroy]
+  skip_before_action :admin_user, only: [:index, :create, :show, :new, :destroy]
 
   # GET /credit_cards
   # GET /credit_cards.json
   def index
-    @credit_cards = CreditCard.all
+    if admin?
+		@credit_cards = CreditCard.all
+	else
+		@credit_cards = CreditCard.where("user_id = "+current_user.id.to_s)
+	end
+	if @credit_cards.empty?
+		flash.now[:info]='You have no credit cards yet'
+	end
   end
 
   # GET /credit_cards/1
   # GET /credit_cards/1.json
   def show
-	if !logged_in? || (!admin? && !(current_user.CreditCard.find(params[:id]).include? @credit_card))
+	if !logged_in? || (!admin? && !(current_user.id == @credit_card.user_id))
 		naughty_user
 	end
   end
@@ -35,7 +42,8 @@ class CreditCardsController < ApplicationController
 
     respond_to do |format|
       if @credit_card.save
-        format.html { redirect_to @credit_card, notice: 'Credit card was successfully created.' }
+        format.html { redirect_to @credit_card 
+					flash[:success] = 'Credit card was successfully created.' }
         format.json { render :show, status: :created, location: @credit_card }
       else
         format.html { render :new }
@@ -47,14 +55,15 @@ class CreditCardsController < ApplicationController
   # PATCH/PUT /credit_cards/1
   # PATCH/PUT /credit_cards/1.json
   def update
-	if !logged_in? || (!admin? && !(current_user.CreditCard.find(params[:id]).include? @credit_card))
+	if !logged_in? || (!admin? && !(current_user.id == @credit_card.user_id))
 		naughty_user
 	else
 		@credit_card.exp_date = params[:exp_date][:year].to_s + "/" + params[:exp_date][:month].to_s
 		
 		respond_to do |format|
 		  if @credit_card.update(credit_card_params)
-			format.html { redirect_to @credit_card, notice: 'Credit card was successfully updated.' }
+			format.html { redirect_to @credit_card
+						flash[:info] = 'Credit card was successfully updated.' }
 			format.json { render :show, status: :ok, location: @credit_card }
 		  else
 			format.html { render :edit }
@@ -67,16 +76,13 @@ class CreditCardsController < ApplicationController
   # DELETE /credit_cards/1
   # DELETE /credit_cards/1.json
   def destroy
-	if !logged_in? || (!admin? && !(current_user.CreditCard.find(params[:id]).include? @credit_card))
+	if !logged_in? || (!admin? && !(current_user.id == @credit_card.user_id))
 		naughty_user
 	else
 		@credit_card.destroy
 		respond_to do |format|
-		  if admin?
-			format.html { redirect_to credit_cards_url, notice: 'Credit card was successfully destroyed.' }
-		  else
-			format.html { redirect_to root_url, notice: 'Credit card was successfully destroyed.' }
-		  end
+		  format.html { redirect_to credit_cards_url 
+						flash[:info] = 'Credit card was successfully destroyed.' }
 		  format.json { head :no_content }
 		end
 	end
