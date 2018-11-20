@@ -9,7 +9,7 @@ class CreditCardsController < ApplicationController
     if admin?
 		@credit_cards = CreditCard.all
 	else
-		@credit_cards = CreditCard.where("user_id = "+current_user.id.to_s)
+		@credit_cards = CreditCard.where(["user_id = ?", current_user.id])
 	end
 	if @credit_cards.empty?
 		flash.now[:info]='You have no credit cards yet'

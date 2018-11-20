@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
 	if admin?
 		@bookings = Booking.all
 	else
-		@bookings = Booking.where("user_id = "+current_user.id.to_s)
+		@bookings = Booking.where(["user_id = ?", current_user.id])
 	end
 	if @bookings.empty?
 		flash.now[:info]='You have no bookings yet'
