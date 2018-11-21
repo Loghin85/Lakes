@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_123723) do
+ActiveRecord::Schema.define(version: 2018_11_21_212541) do
 
   create_table "bookings", force: :cascade do |t|
-    t.integer "user_id"
     t.string "NoOfPersons"
-    t.integer "trip_id"
     t.date "Date"
     t.decimal "Price"
+    t.integer "user_id"
+    t.integer "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_bookings_on_trip_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -45,10 +46,13 @@ ActiveRecord::Schema.define(version: 2018_11_20_123723) do
     t.string "Altitude"
     t.string "Alkalinity"
     t.string "Depth"
-    t.integer "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["trip_id"], name: "index_lake_dests_on_trip_id"
+  end
+
+  create_table "lake_dests_trips", id: false, force: :cascade do |t|
+    t.integer "lake_dest_id"
+    t.integer "trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -57,10 +61,10 @@ ActiveRecord::Schema.define(version: 2018_11_20_123723) do
     t.date "Date"
     t.decimal "Price"
     t.integer "AvailablePlaces"
-    t.integer "booking_id"
+    t.integer "lake_dests_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_trips_on_booking_id"
+    t.index ["lake_dests_id"], name: "index_trips_on_lake_dests_id"
   end
 
   create_table "users", force: :cascade do |t|

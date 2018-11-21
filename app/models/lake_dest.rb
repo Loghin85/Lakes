@@ -1,3 +1,3 @@
 class LakeDest < ApplicationRecord
-	belong_to :trip
+	has_and_belongs_to_many :trip
 end
