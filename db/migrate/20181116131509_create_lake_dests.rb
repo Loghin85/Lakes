@@ -11,6 +11,7 @@ class CreateLakeDests < ActiveRecord::Migration[5.2]
       t.string :Altitude
       t.string :Alkalinity
       t.string :Depth
+	  t.references :trip, foreign_key: true
 
       t.timestamps
     end

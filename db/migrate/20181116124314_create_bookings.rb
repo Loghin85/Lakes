@@ -7,6 +7,7 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.integer :TripId
       t.date :Date
       t.decimal :Price
+	  t.references :user, foreign_key: true
 
       t.timestamps
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_165947) do
+ActiveRecord::Schema.define(version: 2018_11_20_123723) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id"
@@ -45,8 +45,10 @@ ActiveRecord::Schema.define(version: 2018_11_20_165947) do
     t.string "Altitude"
     t.string "Alkalinity"
     t.string "Depth"
+    t.integer "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_lake_dests_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -55,8 +57,10 @@ ActiveRecord::Schema.define(version: 2018_11_20_165947) do
     t.date "Date"
     t.decimal "Price"
     t.integer "AvailablePlaces"
+    t.integer "booking_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_trips_on_booking_id"
   end
 
   create_table "users", force: :cascade do |t|
