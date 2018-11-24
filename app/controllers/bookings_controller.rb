@@ -1,6 +1,5 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user, only: [:index, :create, :show, :new, :destroy]
   skip_before_action :admin_user, only: [:index, :create,:show, :new, :destroy]
 
   # GET /bookings
@@ -22,15 +21,27 @@ class BookingsController < ApplicationController
 	if !logged_in? || (!admin? && !(current_user.id == @booking.user_id))
 		naughty_user
 	end
+	@trips = Trip.all
+	if admin?
+		@users = User.all
+	end
   end
 
   # GET /bookings/new
   def new
     @booking = Booking.new
+	@trips = Trip.all
+	if admin?
+		@users = User.all
+	end
   end
 
   # GET /bookings/1/edit
   def edit
+	@trips = Trip.all
+	if admin?
+		@users = User.all
+	end
   end
 
   # POST /bookings
@@ -96,6 +107,6 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:UserId, :NoOfPersons, :TripId, :Date, :Price)
+      params.require(:booking).permit(:user_id, :NoOfPersons, :trip_id)
     end
 end

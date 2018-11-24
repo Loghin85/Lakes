@@ -17,8 +17,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :Lakes %>
-    <%= form.text_field :Lakes %>
+    <%= form.label :lake_dests %>
+	<%= form.collection_select(:lake_dests, @lakes, :id, :Name, {:prompt => true, include_hidden: false}, {:multiple => true}) %>
   </div>
 
   <div class="field">
@@ -27,16 +27,12 @@
   </div>
 
   <div class="field">
-    <%= form.label :Price %>
-    <%= form.text_field :Price %>
-  </div>
-
-  <div class="field">
     <%= form.label :AvailablePlaces %>
     <%= form.number_field :AvailablePlaces %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
+	<% end %>
+	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
   </div>
-<% end %>

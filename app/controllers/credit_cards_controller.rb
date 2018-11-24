@@ -27,11 +27,16 @@ class CreditCardsController < ApplicationController
   # GET /credit_cards/new
   def new
     @credit_card = CreditCard.new
-	@users = User.all
+	if admin?
+		@users = User.all
+	end
   end
 
   # GET /credit_cards/1/edit
   def edit
+	if admin?
+		@users = User.all
+	end
   end
 
   # POST /credit_cards

@@ -17,17 +17,44 @@ class TripsController < ApplicationController
   # GET /trips/new
   def new
     @trip = Trip.new
+	@lakes = LakeDest.all
   end
 
   # GET /trips/1/edit
   def edit
+	@lakes = LakeDest.all
   end
 
   # POST /trips
   # POST /trips.json
   def create
-    @trip = Trip.new(trip_params)
-
+    @lakes = LakeDest.all
+	if params[:trip][:lake_dests]
+		lakes = ""
+		lake_b = nil
+		price = 0
+		params[:trip][:lake_dests].each do |id|
+			lake = LakeDest.find_by(id: id)
+			lakes += lake.Name + " "
+			if lake_b == nil
+				price += Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake.Lat,lake.Long])*0.5 + 20
+			else
+				price += Geocoder::Calculations.distance_between([lake.Lat,lake.Long], [lake_b.Lat,lake_b.Long])*0.5 + 20
+			end
+			lake_b = lake
+		end
+		price = price.round
+	end
+	
+	@trip = Trip.new(trip_params.merge(Lakes: lakes, Price: price))
+	
+	if params[:trip][:lake_dests]
+		params[:trip][:lake_dests].each do |id|
+			lake = LakeDest.find_by(id: id)
+			@trip.lake_dest << lake
+		end
+	end
+	
     respond_to do |format|
       if @trip.save
         format.html { redirect_to @trip
@@ -43,8 +70,39 @@ class TripsController < ApplicationController
   # PATCH/PUT /trips/1
   # PATCH/PUT /trips/1.json
   def update
+  
+	if params[:trip][:lake_dests]
+		lakes = ""
+		lake_b = nil
+		price = 0
+		params[:trip][:lake_dests].each do |id|
+			lake = LakeDest.find_by(id: id)
+			lakes += lake.Name + ", "
+			if lake_b == nil
+				price += Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake.Lat,lake.Long])*0.5 + 20
+			else
+				price += Geocoder::Calculations.distance_between([lake.Lat,lake.Long], [lake_b.Lat,lake_b.Long])*0.5 + 20
+			end
+			lake_b = lake
+		end
+		lakes = lakes[0...-2]
+		price = price.round
+	end
+	
+	if lakes != @trip.Lakes
+		@trip.Lakes.split(", ").each do |name|
+			lake = LakeDest.find_by(Name: name)
+			@trip.lake_dest.destroy(lake)
+		end
+		
+		params[:trip][:lake_dests].each do |id|
+			lake = LakeDest.find_by(id: id)
+			@trip.lake_dest << lake
+		end
+	end
+	
     respond_to do |format|
-      if @trip.update(trip_params)
+      if @trip.update(trip_params.merge(Lakes: lakes, Price: price))
         format.html { redirect_to @trip
 					flash[:info] = 'Trip was successfully updated.' }
         format.json { render :show, status: :ok, location: @trip }

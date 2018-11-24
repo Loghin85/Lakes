@@ -2,8 +2,8 @@ class User < ApplicationRecord
 	attr_accessor :remember_token, :activation_token, :reset_token
 	before_save   :downcase_email
 	before_create :create_activation_digest
-	has_many :booking
-	has_many :credit_card
+	has_many :booking, dependent: :delete_all
+	has_many :credit_card, dependent: :delete_all
 	
 	validates :Fname, :Lname, :Address, :Postcode, :City, :Country, :Phone, presence: true
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -81,6 +81,11 @@ class User < ApplicationRecord
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+  
+  # Retruns full name.
+  def full_name
+    "#{self.Fname} #{self.Lname}"
   end
   
 end

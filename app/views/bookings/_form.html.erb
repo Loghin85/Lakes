@@ -13,30 +13,21 @@
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+    <%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
   </div>
 
   <div class="field">
-    <%= form.label :NoOfPersons %>
-    <%= form.text_field :NoOfPersons %>
+    <%= form.label :NoOfPersons, "Number of persons" %>
+    <%= form.number_field :NoOfPersons, value: '1', in: 1..20 %>
   </div>
 
   <div class="field">
     <%= form.label :trip_id %>
-    <%= form.text_field :trip_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Date %>
-    <%= form.date_select :Date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Price %>
-    <%= form.text_field :Price %>
+	<%= form.collection_select :trip_id, @trips, :id, :Name, :prompt => "Select a Trip" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
+	<% end %>
+	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
   </div>
-<% end %>

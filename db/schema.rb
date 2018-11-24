@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_135622) do
+ActiveRecord::Schema.define(version: 2018_11_23_203821) do
 
   create_table "bookings", force: :cascade do |t|
-    t.string "NoOfPersons"
-    t.date "Date"
-    t.decimal "Price"
+    t.integer "NoOfPersons"
     t.integer "user_id"
     t.integer "trip_id"
     t.datetime "created_at", null: false
@@ -51,8 +49,8 @@ ActiveRecord::Schema.define(version: 2018_11_22_135622) do
   end
 
   create_table "lake_dests_trips", id: false, force: :cascade do |t|
-    t.integer "lake_dest_id"
-    t.integer "trip_id"
+    t.integer "lake_dest_id", null: false
+    t.integer "trip_id", null: false
   end
 
   create_table "trips", force: :cascade do |t|

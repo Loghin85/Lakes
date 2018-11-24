@@ -1,29 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<%if admin?%>
 <p>
-  <strong>Userid:</strong>
-  <%= @booking.user_id %>
+  <strong>User:</strong>
+  <a class="nounderline" href="/users/<%=@booking.user_id%>"><%= User.find(@booking.user_id).full_name %></a>
 </p>
+<%end%>
 
 <p>
-  <strong>Noofpersons:</strong>
+  <strong>Number of persons:</strong>
   <%= @booking.NoOfPersons %>
 </p>
 
 <p>
-  <strong>Tripid:</strong>
-  <%= @booking.trip_id %>
+  <strong>Trip:</strong>
+  <a class="nounderline" href="/trips/<%=@booking.trip_id%>"><%= Trip.find(@booking.trip_id).Name %></a>
 </p>
 
 <p>
   <strong>Date:</strong>
-  <%= @booking.Date %>
+  <%= Trip.find(@booking.trip_id).Date %>
 </p>
 
 <p>
   <strong>Price:</strong>
-  <%= @booking.Price %>
+  <%= Trip.find(@booking.trip_id).Price * @booking.NoOfPersons %>
 </p>
 
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+<%= button_to 'Edit', edit_booking_path(@booking), class: "btn btn-primary", method: "get" %>
+<%= button_to 'Delete', booking_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>

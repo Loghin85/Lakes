@@ -5,9 +5,13 @@
 <table>
   <thead>
     <tr>
-      <th>Userid</th>
-      <th>Noofpersons</th>
-      <th>Tripid</th>
+	  <th>Booking Nmber</th>
+	  <%if admin?%>
+      <th>User Id</th>
+      <th>Trip Id</th>
+	  <%end%>
+	  <th>Trip</th>
+      <th>Number of persons</th>
       <th>Date</th>
       <th>Price</th>
       <th colspan="3"></th>
@@ -17,11 +21,15 @@
   <tbody>
     <% @bookings.each do |booking| %>
       <tr>
+		<td><%=booking.id%></td>
+		<%if admin?%>
         <td><%= booking.user_id %></td>
-        <td><%= booking.NoOfPersons %></td>
         <td><%= booking.trip_id %></td>
-        <td><%= booking.Date %></td>
-        <td><%= booking.Price %></td>
+		<%end%>
+		<td><%= Trip.find(booking.trip_id).Name %></td>
+        <td><%= booking.NoOfPersons %></td>
+        <td><%= Trip.find(booking.trip_id).Date %></td>
+        <td><%= Trip.find(booking.trip_id).Price * booking.NoOfPersons %></td>
         <td><%= link_to 'Show', booking %></td>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
         <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>

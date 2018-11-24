@@ -20,10 +20,12 @@
   <%= @credit_card.organisation %>
 </p>
 
+<%if admin?%>
 <p>
   <strong>User:</strong>
   <%= @credit_card.user.Lname %>
 </p>
+<%end%>
 
-<%= link_to 'Edit', edit_credit_card_path(@credit_card) %> |
-<%= link_to 'Back', credit_cards_path %>
+<%= button_to 'Edit', edit_credit_card_path(@credit_card), class: "btn btn-primary", method: "get" %>
+<%= button_to 'Delete', credit_card_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
