@@ -46,9 +46,17 @@ class UsersController < ApplicationController
 	if !logged_in? || (!admin? && !(current_user == @user))
 		naughty_user
 	else
+		problem = false
+		update_params.each do |param|
+			p param
+			if !@user.update_attribute(param[0], param[1])
+				problem = true
+			end
+		end
 		respond_to do |format|
-		  if @user.update(user_params)
-			format.html { redirect_to @user, notice: 'User was successfully updated.' }
+		  if !problem
+			format.html { redirect_to @user
+						flash[:info] = 'User was successfully updated.' }
 			format.json { render :show, status: :ok, location: @user }
 		  else
 			format.html { render :edit }
@@ -67,9 +75,11 @@ class UsersController < ApplicationController
 		@user.destroy
 		respond_to do |format|
 		  if admin?
-			format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+			format.html { redirect_to users_url
+						flash[:info] =  'User was successfully destroyed.' }
 		  else
-			format.html { redirect_to root_url, notice: 'User was successfully destroyed.' }
+			format.html { redirect_to root_url
+						flash[:info] = 'User was successfully destroyed.' }
 		  end
 		  format.json { head :no_content }
 		end
@@ -85,7 +95,11 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
-
+	
+	def update_params
+		params.require(:user).permit(:Fname, :Lname, :Email, :Address, :Postcode, :City, :Country, :Phone, :Privilege)
+	end
+	
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:Fname, :Lname, :Email, :Address, :Postcode, :City, :Country, :Phone, :Privilege, :CardRegistered, :password, :password_confirmation)

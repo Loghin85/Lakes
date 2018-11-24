@@ -19,12 +19,12 @@
 
 <p>
   <strong>Date:</strong>
-  <%= Trip.find(@booking.trip_id).Date %>
+  <%= @date %>
 </p>
 
 <p>
   <strong>Price:</strong>
-  <%= Trip.find(@booking.trip_id).Price * @booking.NoOfPersons %>
+  <%= @price %>
 </p>
 
 <%= button_to 'Edit', edit_booking_path(@booking), class: "btn btn-primary", method: "get" %>

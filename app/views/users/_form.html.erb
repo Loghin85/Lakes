@@ -50,18 +50,19 @@
     <%= form.label :Phone %>
     <%= form.text_field :Phone %>
   </div>
-
-  <div class="field">
-    <%= form.label :password, "Password" %>
-    <%= form.password_field :password %>
-  </div>
   
-  <div class="field">
-    <%= form.label :password_confirmation, "Password Confirmation" %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+  <%if admin?%>
+	  <div class="field">
+		<%= form.label :Privilege %>
+		<%= form.radio_button :Privilege, "User"%>
+		<%= label :Privilege_User, 'User' %>
+		<%= form.radio_button :Privilege, "Admin"%>
+		<%= label :Privilege_Admin, 'Admin' %>
+	  </div>
+  <%end%>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit  class: "btn btn-primary"%>
+	<% end %>
+	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
   </div>
-<% end %>

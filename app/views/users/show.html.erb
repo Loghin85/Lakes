@@ -51,6 +51,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
-<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= button_to 'Edit', edit_user_path(@user), class: "btn btn-primary", method: "get" %>
+<%= button_to 'Delete', user_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>

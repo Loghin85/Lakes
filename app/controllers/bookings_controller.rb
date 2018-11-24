@@ -25,6 +25,8 @@ class BookingsController < ApplicationController
 	if admin?
 		@users = User.all
 	end
+	@date = Trip.find(@booking.trip_id).Date
+	@price = Trip.find(@booking.trip_id).Price * @booking.NoOfPersons
   end
 
   # GET /bookings/new

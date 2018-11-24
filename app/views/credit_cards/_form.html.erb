@@ -33,7 +33,7 @@
 
   <%if admin?%>
 	  <div class="field">
-		<%= form.label :customer_id %>
+		<%= form.label :user_id %>
 		<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
 	  </div>
   <%else%>

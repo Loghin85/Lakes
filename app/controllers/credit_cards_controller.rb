@@ -1,7 +1,7 @@
 class CreditCardsController < ApplicationController
   before_action :set_credit_card, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user, only: [:index, :create, :show, :new, :destroy]
-  skip_before_action :admin_user, only: [:index, :create, :show, :new, :destroy]
+  skip_before_action :logged_in_user
+  skip_before_action :admin_user, only: [:create, :show, :new, :destroy]
 
   # GET /credit_cards
   # GET /credit_cards.json
@@ -44,6 +44,7 @@ class CreditCardsController < ApplicationController
   def create
     @credit_card = CreditCard.new(credit_card_params)
 	@credit_card.exp_date = params[:exp_date][:year].to_s + "/" + params[:exp_date][:month].to_s
+	User.find_by(id: params[:credit_card][:user_id]).update_attribute("CardRegistered", true)
 
     respond_to do |format|
       if @credit_card.save
@@ -84,6 +85,10 @@ class CreditCardsController < ApplicationController
 	if !logged_in? || (!admin? && !(current_user.id == @credit_card.user_id))
 		naughty_user
 	else
+		user = User.find_by(id: @credit_card.user_id)
+		if CreditCard.where(id: @credit_card.user_id).count == 1
+			user.update_attribute("CardRegistered", false)
+		end
 		@credit_card.destroy
 		respond_to do |format|
 		  format.html { redirect_to credit_cards_url 

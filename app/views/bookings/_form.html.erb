@@ -11,10 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
-  </div>
+  <%if admin?%>
+	  <div class="field">
+		<%= form.label :user_id %>
+		<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
+	  </div>
+  <%else%>
+	<%= form.hidden_field :user_id, :value => current_user.id %>
+  <%end%>
 
   <div class="field">
     <%= form.label :NoOfPersons, "Number of persons" %>
