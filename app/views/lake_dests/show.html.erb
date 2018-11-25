@@ -50,5 +50,5 @@
   <%= @lake_dest.Depth %>
 </p>
 
-<%= link_to 'Edit', edit_lake_dest_path(@lake_dest) %> |
-<%= link_to 'Back', lake_dests_path %>
+<%= button_to 'Edit', edit_lake_dest_path(@lake_dest), class: "btn btn-primary", method: "get" %>
+<%= button_to 'Delete', lake_dest_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>

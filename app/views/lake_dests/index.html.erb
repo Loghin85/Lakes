@@ -2,7 +2,7 @@
 
 <h1>Lakes</h1>
 
-<table  id="Lakes" class="container-fluid display responsive no-wrap mw-100 mh-50">
+<table  id="Lakes" class="container-fluid display responsive no-wrap" width="100%">
   <thead>
     <tr>
       <th>Name</th>
@@ -48,4 +48,4 @@
 
 <br>
 
-<%= link_to 'New Lake Dest', new_lake_dest_path %>
+<%= button_to 'New Lake Dest', new_lake_dest_path ,class: "btn btn-primary", method: "get"%>

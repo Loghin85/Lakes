@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Credit Cards</h1>
-<table id="Cards" class="container-fluid display responsive no-wrap mw-100 mh-50">
+<table id="Cards" class="container-fluid display responsive no-wrap" width="100%">
   <thead>
     <tr>
       <th>Number</th>
@@ -35,4 +35,4 @@
 
 <br>
 
-<%= link_to 'New Credit Card', new_credit_card_path %>
+<%= button_to 'New Credit Card', new_credit_card_path ,class: "btn btn-primary", method: "get" %>

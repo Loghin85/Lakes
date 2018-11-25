@@ -62,6 +62,7 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:"btn btn-primary" %>
+	<% end %>
+	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
   </div>
-<% end %>
