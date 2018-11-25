@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2018_11_23_203821) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "NoOfPersons"
+    t.boolean "Paid", default: false
     t.integer "user_id"
     t.integer "trip_id"
     t.datetime "created_at", null: false

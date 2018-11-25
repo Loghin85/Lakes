@@ -10,9 +10,7 @@
       <th>Date</th>
       <th>Price</th>
       <th>Availableplaces</th>
-	  <%if admin?%>
       <th></th>
-	  <%end%>
     </tr>
   </thead>
 
@@ -32,6 +30,10 @@
 			  <%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } ,class: "btn btn-outline-secondary"%>
 			</div>
 		</td>
+		<%else%>
+		<td>
+		<%= button_to 'Book', new_booking_path ,class: "btn btn-outline-secondary", method: "get" ,params: { trip_id: trip.id }%>
+		</td>
 		<%end%>
       </tr>
     <% end %>
@@ -39,5 +41,6 @@
 </table>
 
 <br>
-
+<%if admin?%>
 <%= button_to 'New Trip', new_trip_path ,class: "btn btn-primary", method: "get" %>
+<%end%>

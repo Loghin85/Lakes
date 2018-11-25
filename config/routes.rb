@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'password_resets/new'
   get 'password_resets/edit'
   get 'sessions/new'
+  get 'bookings/:id/pay', to: 'bookings#pay', as: 'pay_booking'
   resources :users
   resources :trips
   resources :credit_cards

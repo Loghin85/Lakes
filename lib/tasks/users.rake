@@ -145,6 +145,7 @@ namespace :users do
 		Booking.create!(
 			user_id: user.id,
 			NoOfPersons: persons,
+			Paid: true,
 			trip_id: trip.id
 		)
 	end

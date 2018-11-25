@@ -1,0 +1,45 @@
+<h1>Pay for booking</h1>
+	<p>
+	  <strong>Name:</strong>
+	  <%= @trip.Name %>
+	</p>
+
+	<p>
+	  <strong>Lakes:</strong>
+	  <%= @trip.Lakes %>
+	</p>
+
+	<p>
+	  <strong>Date:</strong>
+	  <%= @trip.Date %>
+	</p>
+
+	<p>
+	  <strong>Price per person:</strong>
+	  <%= @trip.Price%>
+	</p>
+
+	<p>
+	  <strong>NoOfPersons:</strong>
+	  <%= @booking.NoOfPersons %>
+	</p>
+	
+	<p>
+		<strong>Total:</strong>
+		<%= @trip.Price*@booking.NoOfPersons %>
+	</p>
+	
+	<div class="field">
+		<%= form.label :Privilege %>
+		<%= form.radio_button :Privilege, "User"%>
+		<%= label :Privilege_User, 'User' %>
+		<%= form.radio_button :Privilege, "Admin"%>
+		<%= label :Privilege_Admin, 'Admin' %>
+	</div>
+	
+	
+	<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>

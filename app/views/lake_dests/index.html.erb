@@ -47,5 +47,6 @@
 </table>
 
 <br>
-
+<%if admin?%>
 <%= button_to 'New Lake Dest', new_lake_dest_path ,class: "btn btn-primary", method: "get"%>
+<%end%>

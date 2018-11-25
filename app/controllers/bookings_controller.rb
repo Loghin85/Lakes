@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-  skip_before_action :admin_user, only: [:index, :create,:show, :new, :destroy]
+  skip_before_action :admin_user, only: [:index, :create, :show, :edit, :update, :new, :destroy, :pay]
 
   # GET /bookings
   # GET /bookings.json
@@ -32,25 +32,41 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @booking = Booking.new
-	@trips = Trip.all
 	if admin?
 		@users = User.all
+		@trips = Trip.all
+	else
+		@trip = Trip.find_by(id: params[:trip_id])
+		
 	end
   end
 
   # GET /bookings/1/edit
   def edit
 	@trips = Trip.all
+	@trip = Trip.find_by(id: @booking.trip_id)
 	if admin?
 		@users = User.all
 	end
   end
 
+  def pay
+	@booking = Booking.find_by(id: params[:id])
+	@trip = Trip.find_by(id: @booking.trip_id)
+  end
+  
   # POST /bookings
   # POST /bookings.json
   def create
     @booking = Booking.new(booking_params)
-
+	@trip = Trip.find_by(id: @booking.trip_id)
+	if @booking.NoOfPersons>@trip.AvailablePlaces
+		flash[:warning] = 'Not enough places available'
+		render 'new'
+	else
+		@trip.AvailablePlaces -= @booking.NoOfPersons
+		@trip.save
+	
     respond_to do |format|
       if @booking.save
         format.html { redirect_to @booking
@@ -61,14 +77,24 @@ class BookingsController < ApplicationController
         format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
+	end
   end
 
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
+	@trip = Trip.find_by(id: @booking.trip_id)
 	if !logged_in? || (!admin? && !(current_user.id == @booking.user_id))
 		naughty_user
 	else
+		if params[:booking][:NoOfPersons].to_i-@booking.NoOfPersons>@trip.AvailablePlaces
+			flash[:warning] = 'Not enough places available'
+			render 'edit'
+		else
+			@trip.AvailablePlaces += @booking.NoOfPersons
+			@trip.AvailablePlaces -= params[:booking][:NoOfPersons].to_i
+			@trip.save
+		
 		respond_to do |format|
 		  if @booking.update(booking_params)
 			format.html { redirect_to @booking
@@ -78,6 +104,7 @@ class BookingsController < ApplicationController
 			format.html { render :edit }
 			format.json { render json: @booking.errors, status: :unprocessable_entity }
 		  end
+		end
 		end
 	end
   end
