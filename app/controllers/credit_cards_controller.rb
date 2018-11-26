@@ -1,7 +1,7 @@
 class CreditCardsController < ApplicationController
   before_action :set_credit_card, only: [:show, :edit, :update, :destroy]
   skip_before_action :logged_in_user
-  skip_before_action :admin_user, only: [:create, :show, :new, :destroy]
+  skip_before_action :admin_user, only: [:index, :create, :show, :new, :destroy]
 
   # GET /credit_cards
   # GET /credit_cards.json

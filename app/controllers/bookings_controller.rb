@@ -53,6 +53,7 @@ class BookingsController < ApplicationController
   def pay
 	@booking = Booking.find_by(id: params[:id])
 	@trip = Trip.find_by(id: @booking.trip_id)
+	@cards = CreditCard.where(user_id: current_user.id)
   end
   
   # POST /bookings
@@ -136,6 +137,6 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:user_id, :NoOfPersons, :trip_id)
+      params.require(:booking).permit(:user_id, :NoOfPersons, :trip_id, :Paid)
     end
 end

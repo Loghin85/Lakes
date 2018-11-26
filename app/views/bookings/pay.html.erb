@@ -1,4 +1,5 @@
 <h1>Pay for booking</h1>
+	<%= form_for @booking, url: {action: "update"} do |form| %>
 	<p>
 	  <strong>Name:</strong>
 	  <%= @trip.Name %>
@@ -30,16 +31,20 @@
 	</p>
 	
 	<div class="field">
-		<%= form.label :Privilege %>
-		<%= form.radio_button :Privilege, "User"%>
-		<%= label :Privilege_User, 'User' %>
-		<%= form.radio_button :Privilege, "Admin"%>
-		<%= label :Privilege_Admin, 'Admin' %>
+		<%= form.label "Payment method:"%>
+		<% if !@cards.empty? %>
+			<% @cards.each do |card|%>
+				<%= form.radio_button :Paid, true%>
+				<%= label :PaidTrue, "Card ending in "+card.number.split(//).last(4).join %>
+			<%end%>
+		<%else%>
+			If you want to pay by credit card you will have to add it to you account
+		<%end%>
+		<%= form.radio_button :Paid, false%>
+		<%= label :PaidFalse, "Pay cash on the day" %>
 	</div>
-	
-	
-	<%= form_tag("/search", method: "get") do %>
-  <%= label_tag(:q, "Search for:") %>
-  <%= text_field_tag(:q) %>
-  <%= submit_tag("Search") %>
-<% end %>
+	  <div class="actions">
+    <%= form.submit "Confirm payment method", class: "btn btn-primary" %>
+	<% end %>
+	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
+  </div>
