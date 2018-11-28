@@ -7,6 +7,14 @@ class TripsController < ApplicationController
   # GET /trips.json
   def index
     @trips = Trip.all
+	@names = []
+	@places = []
+	@id = []
+	@trips.each do |trip|
+		@names << trip.Name
+		@places << trip.AvailablePlaces
+		@id << trip.id
+	end
   end
 
   # GET /trips/1

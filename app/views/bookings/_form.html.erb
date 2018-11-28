@@ -23,7 +23,8 @@
 		<%= form.collection_select :trip_id, @trips, :id, :Name, :prompt => "Select a Trip" %>
 	  </div>
   <%else%>
-	<%= form.hidden_field :user_id, :value => current_user.id %>	
+	<%= form.hidden_field :user_id, :value => current_user.id %>
+	<%= form.hidden_field :trip_id, :value => @trip.id %>
 	<p>
 	  <strong>Name:</strong>
 	  <%= @trip.Name %>

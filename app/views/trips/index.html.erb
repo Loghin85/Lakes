@@ -2,45 +2,132 @@
 
 <h1>Trips</h1>
 
-<table  id="Trips" class="container-fluid display responsive no-wrap" width="100%">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Lakes</th>
-      <th>Date</th>
-      <th>Price</th>
-      <th>Availableplaces</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @trips.each do |trip| %>
-      <tr>
-        <td><%= trip.Name %></td>
-        <td><%= trip.Lakes %></td>
-        <td><%= trip.Date %></td>
-        <td><%= trip.Price %></td>
-        <td><%= trip.AvailablePlaces %></td>
-		<% if admin?%>
-		<td>
-			<div class="btn-group" role="group" aria-label="Basic example">
-			  <%= link_to 'Show', trip ,class: "btn btn-outline-secondary"%>
-			  <%= link_to 'Edit', edit_trip_path(trip) ,class: "btn btn-outline-secondary"%>
-			  <%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } ,class: "btn btn-outline-secondary"%>
-			</div>
-		</td>
-		<%else%>
-		<td>
-		<%= button_to 'Book', new_booking_path ,class: "btn btn-outline-secondary", method: "get" ,params: { trip_id: trip.id }%>
-		</td>
-		<%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="table-tab" data-toggle="tab" href="#table" role="tab" aria-controls="table" aria-selected="true">Table</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="false">Chart</a>
+  </li>
+</ul>
 <br>
-<%if admin?%>
-<%= button_to 'New Trip', new_trip_path ,class: "btn btn-primary", method: "get" %>
-<%end%>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="table" role="tabpanel" aria-labelledby="table-tab">
+	<table  id="Trips" class="container-fluid display responsive no-wrap" width="100%">
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Lakes</th>
+		  <th>Date</th>
+		  <th>Price</th>
+		  <th>Availableplaces</th>
+		  <th></th>
+		</tr>
+	  </thead>
+
+	  <tbody>
+		<% @trips.each do |trip| %>
+		  <tr>
+			<td><%= trip.Name %></td>
+			<td><%= trip.Lakes %></td>
+			<td><%= trip.Date %></td>
+			<td><%= trip.Price %></td>
+			<td><%= trip.AvailablePlaces %></td>
+			<td>
+				<div class="btn-group" role="group" aria-label="Basic example">
+				  <%= link_to 'Show', trip ,class: "btn btn-outline-secondary"%>
+			<% if admin?%>
+				  <%= link_to 'Edit', edit_trip_path(trip) ,class: "btn btn-outline-secondary"%>
+				  <%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } ,class: "btn btn-outline-secondary"%>
+			<%else%>
+				  <%= link_to 'Book', new_booking_path(trip_id: trip.id) ,class: "btn btn-outline-secondary"%>
+			<%end%>
+				</div>
+			</td>
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
+
+	<br>
+	<%if admin?%>
+	<%= button_to 'New Trip', new_trip_path ,class: "btn btn-primary", method: "get" %>
+	<%end%>
+</div>
+<div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+	<div id="container" style="width:100%; height:400px;"></div>
+	<div class="btn-group" role="group" aria-label="Basic example">
+	  <button id="back" type="button" class="btn btn-outline-secondary">Previous</button>
+	  <button id="forward" type="button" class="btn btn-outline-secondary">Next</button>
+	</div>
+	<br><br>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+	var names = <%= raw @names%>
+	var ids = <%= raw @id%>
+    var myChart = Highcharts.chart('container', {
+  chart: {
+    type: 'bar',
+	events: {
+        load: function() {
+          this.xAxis[0].setExtremes(0, 9);
+        }
+      }
+  },
+  title: {
+    text: 'Available places'
+	},
+  xAxis: {
+    categories: <%= raw @names%>,
+    title: {
+      text: null
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Available palces',
+      align: 'high'
+    },
+    labels: {
+      overflow: 'justify'
+    }
+  },
+  plotOptions: {
+    bar: {
+      dataLabels: {
+        enabled: true
+      }
+    }
+  },
+  credits: {
+    enabled: false
+  },
+  series: [{
+	showInLegend: false,
+    data: <%= raw @places%>
+  }]
+});
+ var stepWidth = 10;
+  // the button action
+
+  $('#forward').click(function() {
+    var chart = myChart;
+    var currentMin = chart.xAxis[0].getExtremes().min;
+    var currentMax = chart.xAxis[0].getExtremes().max;
+
+    chart.xAxis[0].setExtremes(currentMin + stepWidth, currentMax + stepWidth);
+  });
+
+  $('#back').click(function() {
+    var chart = myChart;
+    var currentMin = chart.xAxis[0].getExtremes().min;
+    var currentMax = chart.xAxis[0].getExtremes().max;
+
+    chart.xAxis[0].setExtremes(currentMin - stepWidth, currentMax - stepWidth);
+  });
+});
+</script>

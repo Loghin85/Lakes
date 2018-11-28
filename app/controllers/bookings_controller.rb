@@ -51,7 +51,7 @@ class BookingsController < ApplicationController
   end
 
   def pay
-	@booking = Booking.find_by(id: params[:id])
+	@booking = Booking.find_by(id: params[:trip_id])
 	@trip = Trip.find_by(id: @booking.trip_id)
 	@cards = CreditCard.where(user_id: current_user.id)
   end

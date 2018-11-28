@@ -27,3 +27,47 @@
 
 <%= button_to 'Edit', edit_trip_path(@trip), class: "btn btn-primary", method: "get" %>
 <%= button_to 'Delete', trip_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
+
+<div id="container" class=" " style="width: 50%; height: 400px; float: right; margin: 0 auto"></div>
+
+<script type="text/javascript">
+Highcharts.chart('container', {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'Availability'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.y}',
+        style: {
+          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+        }
+      }
+    }
+  },
+  series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+      name: 'Free',
+      y: <%= raw @trip.AvailablePlaces%>,
+      sliced: true
+    }, {
+      name: 'Booked',
+      y: <%= raw Booking.where(trip_id: @trip.id).sum(:NoOfPersons) %>
+    }]
+  }]
+});
+</script>
