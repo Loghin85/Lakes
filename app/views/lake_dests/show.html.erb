@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<% if admin?%>
 <p>
   <strong>Name:</strong>
   <%= @lake_dest.Name %>
@@ -52,3 +52,56 @@
 
 <%= button_to 'Edit', edit_lake_dest_path(@lake_dest), class: "btn btn-primary", method: "get" %>
 <%= button_to 'Delete', lake_dest_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
+<%else%>
+<h1><%= @lake_dest.Name %></h1>
+
+<p>
+<%= @lake_dest.Name %> is one of the many lakes we offer tours to. It is located in the <%= @lake_dest.District %> district, Latitude: <%= @lake_dest.Lat %>,
+ Longitude: <%= @lake_dest.Long %> to be exact. <%if @lake_dest.River%> It is formed by the <%= @lake_dest.River %>.<%end%> It is considered a <%= @lake_dest.Depth %>,
+  <%= @lake_dest.Altitude %>, <%= @lake_dest.Alkalinity %> lake. You can find more details about it <a href="<%= @lake_dest.Details_Url %>">here</a>.
+</p>
+
+<%end%>
+<div id="map" style="height: 600px; width: 50%; margin: auto;"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= @lake_dest.Lat%>, lng: <%= @lake_dest.Long%>},
+          zoom: 13
+        });
+		 var infowindow = new google.maps.InfoWindow();
+	
+	var marker, i, markers =[];
+	
+	
+
+    <% @lake_dests.each do |lake_dest| %>  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(<%= lake_dest.Lat%>, <%= lake_dest.Long%>),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+		  <% @link = link_to(lake_dest.Name+", "+lake_dest.District, lake_dest, )%>
+		  infowindow.setContent(<%= @link.to_json.html_safe%>);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+	  markers.push(marker);
+    <% end %>
+	  
+	var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+	
+	  
+	  }
+	  
+    </script>
+	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxVu5xH2AtPAlOlWZuDZS-PoKCp5tpD4w&callback=initMap"
+    async defer></script>
+
+	<br><br>
+

@@ -12,6 +12,7 @@ class LakeDestsController < ApplicationController
   # GET /lake_dests/1
   # GET /lake_dests/1.json
   def show
+	@lake_dests = LakeDest.all
   end
 
   # GET /lake_dests/new
