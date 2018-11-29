@@ -12,6 +12,7 @@ require 'csv'
 
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'sepa_loch_waterbody_classifications_bng.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+LakeDest.delete_all
 csv.each do |row|
   t = LakeDest.new
   t.Name = row['NAME']

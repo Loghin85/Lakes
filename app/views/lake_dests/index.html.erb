@@ -2,6 +2,167 @@
 
 <h1>Lakes</h1>
 
+<%= form_tag(lake_dests_path, method: :get) do %>
+  <div class="field">
+  <%= text_field_tag :Name, params[:Name] , placeholder: "Lake Name"%>
+  <%= submit_tag 'Search', class: "btn btn-primary"%>
+  </div>
+  
+  <a class="btn btn-outline-secondary btn-sm" data-toggle="collapse" href="#collapseFilters" role="button" aria-expanded="false" aria-controls="collapseExample">More filters</a>
+
+  <div class="collapse" id="collapseFilters">
+	  <div class="card card-body">
+		  <div class="field">
+		  <%= label_tag :Area, 'Area min-max'%>
+		  <%= number_field_tag :AreaMin, params[:AreaMin] ,step: 0.01%>-
+		  <%= number_field_tag :AreaMax, params[:AreaMax] ,step: 0.01%>
+		  <div id='AreaSlider' style="width: 40%;"></div>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :District%>
+		  <% @districts.each do |district| %>
+				<%= check_box_tag 'District[]', district, @selectedDistricts.include?(district) %>
+				<%= h district %>
+		  <% end %>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :Lat,'Latitude min-max'%>
+		  <%= number_field_tag :LatMin, params[:LatMin] ,step: 0.01%>-
+		  <%= number_field_tag :LatMax, params[:LatMax] ,step: 0.01%>
+		  <div id='LatSlider'  style="width: 40%;"></div>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :Long, 'Longitude min-max'%>
+		  <%= number_field_tag :LongMin, params[:LongMin] ,step: 0.01%>-
+		  <%= number_field_tag :LongMax, params[:LongMax] ,step: 0.01%>
+		  <div id='LongSlider'  style="width: 40%;"></div>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :River%>
+		  <%= select_tag :River, options_for_select(@rivers), multiple: true%>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :Altitude%>
+		  <% @altitudes.each do |altitude| %>
+				<%= check_box_tag 'Altitude[]', altitude , @selectedAltitudes.include?(altitude)%>
+				<%= h altitude %>
+		  <% end %>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :Alkalinity %>
+		  <% @alkalinities.each do |alkalinity| %>
+				<%= check_box_tag 'Alkalinity[]', alkalinity, @selectedAlkalinities.include?(alkalinity) %>
+				<%= h alkalinity %>
+		  <% end %>
+		  </div>
+
+		  <div class="field">
+		  <%= label_tag :Depth%>
+		  <% @depths.each do |depth| %>
+				<%= check_box_tag 'Depth[]', depth, @selectedDepths.include?(depth) %>
+				<%= h depth %>
+		  <% end %>
+		  </div>
+		  <%= button_tag("Delete Filters", { :name => 'reset', :id => 'reset', :type => 'reset', :class => 'btn btn-primary btn-sm'}) %>
+		</div>
+	</div>
+  
+<% end %>
+
+<script>
+
+var slider1 = document.getElementById('AreaSlider');
+var slider2 = document.getElementById('LatSlider');
+var slider3 = document.getElementById('LongSlider');
+var Areas=[ AreaMin = document.getElementById('AreaMin'),
+			AreaMax = document.getElementById('AreaMax')]
+var Lats=[ LatMin = document.getElementById('LatMin'),
+		   LatMax = document.getElementById('LatMax')]
+var Longs=[ LongMin = document.getElementById('LongMin'),
+			LongMax = document.getElementById('LongMax')]
+
+noUiSlider.create(slider1, {
+    start: [<%= @AreaMin %>, <%= @AreaMax %>],
+    connect: true,
+	step: 0.01,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+noUiSlider.create(slider2, {
+    start: [<%= @LatMin %>, <%= @LatMax %>],
+    connect: true,
+	step: 0.01,
+    range: {
+        'min': -90,
+        'max': 90
+    }
+});
+noUiSlider.create(slider3, {
+    start: [<%= @LongMin %>, <%= @LongMax %>],
+    connect: true,
+	step: 0.01,
+    range: {
+        'min': -180,
+        'max': 180
+    }
+});
+slider1.noUiSlider.on('update', function (values, handle) {
+    Areas[handle].value = values[handle]
+});
+
+slider2.noUiSlider.on('update', function (values, handle) {
+    Lats[handle].value = values[handle]
+});
+
+slider3.noUiSlider.on('update', function (values, handle) {
+    Longs[handle].value = values[handle]
+});
+
+Areas[0].addEventListener('change', function () {
+    slider1.noUiSlider.set([Areas[0].value, Areas[1].value]);
+});
+
+Areas[1].addEventListener('change', function () {
+    slider1.noUiSlider.set([Areas[0].value, Areas[1].value]);
+});
+
+Lats[0].addEventListener('change', function () {
+    slider2.noUiSlider.set([Lats[0].value, Lats[1].value]);
+});
+
+Lats[1].addEventListener('change', function () {
+    slider2.noUiSlider.set([Lats[0].value, Lats[1].value]);
+});
+
+Longs[0].addEventListener('change', function () {
+    slider3.noUiSlider.set([Longs[0].value, Longs[1].value]);
+});
+
+Longs[1].addEventListener('change', function () {
+    slider3.noUiSlider.set([Longs[0].value, Longs[1].value]);
+});
+
+
+$('button[type=reset]').click(function(event){
+ event.preventDefault();
+ var event = new Event('change');
+ $('input[ name=Name]').val('');
+ slider1.noUiSlider.set([0, 100]);
+ slider2.noUiSlider.set([-90, 90]);
+ slider3.noUiSlider.set([-180, 180]);
+ $('input:checkbox').removeAttr('checked');
+});
+
+</script>
+<br>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="table-tab" data-toggle="tab" href="#table" role="tab" aria-controls="table" aria-selected="true">Table</a>

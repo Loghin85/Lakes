@@ -6,7 +6,75 @@ class LakeDestsController < ApplicationController
   # GET /lake_dests
   # GET /lake_dests.json
   def index
-    @lake_dests = LakeDest.all
+	@districts = LakeDest.distinct.pluck(:District).compact.sort
+	@altitudes = LakeDest.distinct.pluck(:Altitude).compact.sort
+	@alkalinities = LakeDest.distinct.pluck(:Alkalinity).compact.sort
+	@rivers = LakeDest.distinct.pluck(:River).compact.sort
+	@depths = LakeDest.distinct.pluck(:Depth).compact.sort
+	@selectedDistricts = []
+	@selectedAltitudes = []
+	@selectedAlkalinities = []
+	@selectedDepths = []
+	@AreaMin = 0
+	@AreaMax = 100
+	@LatMin = -90
+	@LatMax = 90
+	@LongMin = -180
+	@LongMax = 180
+	@lake_dests = LakeDest.all
+	if params[:Name]
+		@lake_dests = @lake_dests.where('Name LIKE ?', "%#{params[:Name]}%")
+	end
+	if params[:AreaMin] && params[:AreaMax]
+		@lake_dests = @lake_dests.where(Area: params[:AreaMin]..params[:AreaMax])
+		@AreaMin = params[:AreaMin]
+		@AreaMax = params[:AreaMax]
+	end
+	if params[:District]
+		@lake_dests = @lake_dests.where(District: params[:District])
+		@selectedDistricts = params[:District]
+	end
+	if params[:LatMin] && params[:LatMax]
+		@lake_dests = @lake_dests.where(Lat: params[:LatMin]..params[:LatMax])
+		@LatMin = params[:LatMin]
+		@LatMax = params[:LatMax]
+	end
+	if params[:LongMin] && params[:LongMax]
+		@lake_dests = @lake_dests.where(Long: params[:LongMin]..params[:LongMax])
+		@LongMin = params[:LongMin]
+		@LongMax = params[:LongMax]
+	end
+	if params[:River]
+		@lake_dests = @lake_dests.where(River: params[:River])
+		
+	end
+	if params[:Altitude]
+		@lake_dests = @lake_dests.where(Altitude: params[:Altitude])
+		@selectedAltitudes = params[:Altitude]
+	end
+	if params[:Alkalinity]
+		@lake_dests = @lake_dests.where(Alkalinity: params[:Alkalinity])
+		@selectedAlkalinities = params[:Alkalinity]
+	end
+	if params[:Depth]
+		@lake_dests = @lake_dests.where(Depth: params[:Depth])
+		@selectedDepths = params[:Depth]
+	end
+  end
+  
+  def resetFilter
+	@selectedDistricts = []
+	@selectedAltitudes = []
+	@selectedAlkalinities = []
+	@selectedDepths = []
+	@AreaMin = 0
+	@AreaMax = 100
+	@LatMin = -90
+	@LatMax = 90
+	@LongMin = -180
+	@LongMax = 180
+	@lake_dests = LakeDest.all
+	redirect_to :index
   end
 
   # GET /lake_dests/1
