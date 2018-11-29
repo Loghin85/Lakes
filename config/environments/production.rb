@@ -9,6 +9,9 @@ Rails.application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
   config.assets.compile = true
   config.assets.digest = true
+  
+  # noUIslider load
+  config.assets.precompile += %w( jquery.nouislider.js )
 
   #Hartl and Sandrail configuration
   config.action_mailer.raise_delivery_errors = true

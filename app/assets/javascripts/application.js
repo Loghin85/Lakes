@@ -18,5 +18,4 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
-//= require nouislider
 //= require_tree .

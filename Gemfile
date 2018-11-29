@@ -44,7 +44,7 @@ gem 'bootstrap'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'sendgrid-ruby'
-gem 'nouislider-rails'
+#gem 'nouislider-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
