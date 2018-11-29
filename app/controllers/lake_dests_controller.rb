@@ -23,7 +23,7 @@ class LakeDestsController < ApplicationController
 	@LongMax = 180
 	@lake_dests = LakeDest.all
 	if params[:Name]
-		@lake_dests = @lake_dests.where('Name LIKE ?', "%#{params[:Name]}%")
+		@lake_dests = @lake_dests.where('lake_dests.Name LIKE ?', "%#{params[:Name]}%")
 	end
 	if params[:AreaMin] && params[:AreaMax]
 		@lake_dests = @lake_dests.where(Area: params[:AreaMin]..params[:AreaMax])
