@@ -11,7 +11,7 @@ Rails.application.configure do
   config.assets.digest = true
   
   # noUIslider load
-  config.assets.precompile += %w( jquery.nouislider.js )
+  config.assets.precompile += %w( nouislider.js )
 
   #Hartl and Sandrail configuration
   config.action_mailer.raise_delivery_errors = true
