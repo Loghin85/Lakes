@@ -6,7 +6,22 @@ class TripsController < ApplicationController
   # GET /trips
   # GET /trips.json
   def index
+	@Persons = 1
+	@DateMin = Date.today
+	@DateMax = @DateMin+5.year
     @trips = Trip.all
+	if params[:Name]
+		@trips = @trips.where('"trips"."Name" LIKE ? OR "trips"."Lakes" LIKE ?', "%#{params[:Name]}%", "%#{params[:Name]}%")
+	end
+	if params[:DateMin] && params[:DateMax]
+		@trips = @trips.where(Date: params[:DateMin]..params[:DateMax])
+		@DateMin = params[:DateMin]
+		@DateMax = params[:DateMax]
+	end
+	if params[:Persons]
+		@trips = @trips.where('"trips"."AvailablePlaces" >= ?', params[:Persons])
+		@Persons = params[:Persons]
+	end
 	@names = []
 	@places = []
 	@id = []
