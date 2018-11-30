@@ -49,9 +49,10 @@
   <strong>Depth:</strong>
   <%= @lake_dest.Depth %>
 </p>
-
+<% if admin?%>
 <%= button_to 'Edit', edit_lake_dest_path(@lake_dest), class: "btn btn-primary", method: "get" %>
 <%= button_to 'Delete', lake_dest_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
+<% end%>
 <%else%>
 <h1><%= @lake_dest.Name %></h1>
 

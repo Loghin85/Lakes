@@ -1,0 +1,259 @@
+<h1>Statistics</h1>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-areas-tab" data-toggle="tab" href="#nav-areas" role="tab" aria-controls="nav-areas" aria-selected="true">Areas of interest heatmap</a>
+    <a class="nav-item nav-link" id="nav-added-tab" data-toggle="tab" href="#nav-added" role="tab" aria-controls="nav-added" aria-selected="false">Bookings made chart</a>
+    <a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false">New users chart</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-areas" role="tabpanel" aria-labelledby="nav-areas-tab">
+    <div style="width: 150px; margin: auto; padding-top: 10px; padding-bottom: 10px;"><input onclick="toggleMarkers();" type=button value="Hide/Show Markers" class="btn btn-outline-secondary"></div>
+	<div id="map" style="height: 600px; width: 80%; margin: auto;"></div><br><br>
+  </div>
+  <div class="tab-pane fade" id="nav-added" role="tabpanel" aria-labelledby="nav-added-tab">
+	<div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
+  </div>
+  <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
+	<div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+Highcharts.chart('container1', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly Bookings'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Participants'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} Participants</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: '2018',
+        data: <%= raw @year2018 %>
+
+    }, {
+        name: '2019',
+        data: <%= raw @year2019 %>
+
+    }, {
+        name: '2020',
+        data: <%= raw @year2020 %>
+
+    }, {
+        name: '2021',
+        data: <%= raw @year2021 %>
+
+    }]
+});
+
+
+Highcharts.chart('container2', {
+    chart: {
+        type: 'areaspline'
+    },
+    title: {
+        text: 'Projected Monthly Revenue'
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        title: {
+            text: 'British pounds(GBP)'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' GBP'
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.5
+        }
+    },
+    series: [{
+        name: '2018',
+        data: <%= raw @money2018 %>
+    }, {
+        name: '2019',
+        data: <%= raw @money2019 %>
+    }, {
+        name: '2020',
+        data: <%= raw @money2020 %>
+    }, {
+        name: '2021',
+        data: <%= raw @money2021 %>
+    }]
+});
+
+
+</script>
+
+
+    <script>
+
+      // This example requires the Visualization library. Include the libraries=visualization
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
+
+      var map, heatmap;
+		var marker, i, markers =[];
+		var markerCluster;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 57.0, lng: -3.58},
+          mapTypeId: 'satellite'
+        });
+		var infowindow = new google.maps.InfoWindow();
+
+        heatmap = new google.maps.visualization.HeatmapLayer({
+          data: getPoints(),
+          map: map
+        });
+		<% @lake_dests.each do |lake_dest| %>  
+		  marker = new google.maps.Marker({
+			position: new google.maps.LatLng(<%= lake_dest.Lat%>, <%= lake_dest.Long%>),
+			map: map,
+		  });
+
+		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+			  <% @link = link_to(lake_dest.Name+", "+lake_dest.District, lake_dest)%>
+			  infowindow.setContent(<%= @link.to_json.html_safe%>);
+			  infowindow.open(map, marker);
+			}
+		  })(marker, i));
+		  markers.push(marker);
+		<% end %>
+			  
+		markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      
+	  
+	  
+	  }
+
+      function toggleHeatmap() {
+        heatmap.setMap(heatmap.getMap() ? null : map);
+      }
+
+      function changeGradient() {
+        var gradient = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+	  }
+		function getPoints() {
+        var points = []
+		<% @bookings.each do |booking| %>
+			<% booking.trip.lake_dest.each do |lake| %>
+				<% booking.NoOfPersons.times do %>
+					points.push(new google.maps.LatLng(<%= lake.Lat%>, <%= lake.Long%>));
+				<% end %>
+			<% end %>
+		<% end %>
+		return points
+		}
+		
+	function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+	function toggleMarkers() {
+        if (markers[0].getVisible())
+			{for (var i in markers) {
+				markers[i].setVisible(false);
+				markerCluster.removeMarker(markers[i]);
+			}}
+		else
+			{for (var i in markers) {
+				markers[i].setVisible(true);
+				markerCluster.addMarker(markers[i]);
+			}}
+      }
+	  
+     
+    </script>
+	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script> 
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxVu5xH2AtPAlOlWZuDZS-PoKCp5tpD4w&libraries=visualization&callback=initMap">
+    </script>

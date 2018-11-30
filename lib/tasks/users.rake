@@ -41,7 +41,7 @@ namespace :users do
 		)
 	
 	#create users
-    20.times do |index|
+    40.times do |index|
 		password = Faker::Internet.password(10, 20, true, true)
       User.create!(
         Fname: Faker::Name.first_name,
@@ -82,7 +82,7 @@ namespace :users do
 		trip = Trip.create!(
 			Name: "The " + lake.Name + " tour",
 			Lakes: lake.Name,
-			Date: Faker::Date.between(Date.today, 1.year.from_now),
+			Date: Faker::Date.between(Date.today, 3.year.from_now),
 			Price: (Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake.Lat,lake.Long])*0.5 + 20).round,
 			AvailablePlaces: 20
 		)
@@ -97,7 +97,7 @@ namespace :users do
 		trip = Trip.create!(
 			Name: "The " + Faker::Food.dish + " tour",
 			Lakes: lake1.Name + ", " + lake2.Name,
-			Date: Faker::Date.between(Date.today, 1.year.from_now),
+			Date: Faker::Date.between(Date.today, 3.year.from_now),
 			Price: (Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake1.Lat,lake1.Long])*0.5 +
 			Geocoder::Calculations.distance_between([lake1.Lat,lake1.Long],[lake2.Lat,lake2.Long])*0.5+ 40).round,
 			AvailablePlaces: 20
@@ -118,7 +118,7 @@ namespace :users do
 		trip = Trip.create!(
 			Name: "The " + Faker::Food.dish + " tour",
 			Lakes: lake1.Name + ", " + lake2.Name + ", " + lake3.Name,
-			Date: Faker::Date.between(Date.today, 1.year.from_now),
+			Date: Faker::Date.between(Date.today, 3.year.from_now),
 			Price: (Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake1.Lat,lake1.Long])*0.5 +
 			Geocoder::Calculations.distance_between([lake1.Lat,lake1.Long],[lake2.Lat,lake2.Long])*0.5 +
 			Geocoder::Calculations.distance_between([lake2.Lat,lake2.Long],[lake3.Lat,lake3.Long])*0.5+ 60).round,
@@ -133,7 +133,7 @@ namespace :users do
 	#create bookings
 	users = User.all
 	trips = Trip.all
-	40.times do |booking|
+	300.times do |booking|
 		user = users.sample
 		trip = trips.sample
 		persons = rand(1..10)
@@ -148,6 +148,7 @@ namespace :users do
 			Paid: true,
 			trip_id: trip.id
 		)
+		p user.id
 	end
 	p "bookings created"
 	

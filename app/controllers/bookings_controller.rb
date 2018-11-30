@@ -66,6 +66,7 @@ class BookingsController < ApplicationController
 		render 'new'
 	else
 		@trip.AvailablePlaces -= @booking.NoOfPersons
+		@booking.trip << @trip
 		@trip.save
 	
     respond_to do |format|

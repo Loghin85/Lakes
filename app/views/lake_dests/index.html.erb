@@ -253,7 +253,7 @@ $(document).ready(function() {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-		  <% @link = link_to(lake_dest.Name+", "+lake_dest.District, lake_dest, )%>
+		  <% @link = link_to(lake_dest.Name+", "+lake_dest.District, lake_dest)%>
 		  infowindow.setContent(<%= @link.to_json.html_safe%>);
           infowindow.open(map, marker);
         }

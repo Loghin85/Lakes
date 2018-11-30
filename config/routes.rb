@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :credit_cards
   resources :lake_dests
   resources :bookings
+  resources :statistics
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   default_url_options :host => "example.com"
