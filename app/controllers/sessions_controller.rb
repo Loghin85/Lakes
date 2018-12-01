@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password])
 		if user.activated?
 			log_in user
+			flash[:info] = 'Logged in successfully'
 			params[:session][:remember_me] == '1' ? remember(user) : forget(user)
 			redirect_to root_url
 		  else
