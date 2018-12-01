@@ -1,69 +1,115 @@
 <p id="notice"><%= notice %></p>
-<% if admin?%>
-<p>
-  <strong>Name:</strong>
-  <%= @lake_dest.Name %>
-</p>
+<div class="row" style="width: 100%; padding: 10px;">
+	<div class="col-6">
+		<div class="col-12" style="text-align: center;">
+			<h1><%= @lake_dest.Name %></h1>
+			<br>
+		</div>
+		<% if admin?%>
 
-<p>
-  <strong>Area:</strong>
-  <%= @lake_dest.Area %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Area:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Area %>
+			</div>
+		</div>
 
-<p>
-  <strong>District:</strong>
-  <%= @lake_dest.District %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>District:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.District %>
+			</div>
+		</div>
 
-<p>
-  <strong>Lat:</strong>
-  <%= @lake_dest.Lat %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Lat:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Lat %>
+			</div>
+		</div>
 
-<p>
-  <strong>Long:</strong>
-  <%= @lake_dest.Long %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Long:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Long %>
+			</div>
+		</div>
 
-<p>
-  <strong>River:</strong>
-  <%= @lake_dest.River %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>River:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.River %>
+			</div>
+		</div>
 
-<p>
-  <strong>Details url:</strong>
-  <%= @lake_dest.Details_Url %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Details url:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Details_Url %>
+			</div>
+		</div>
 
-<p>
-  <strong>Altitude:</strong>
-  <%= @lake_dest.Altitude %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Altitude:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Altitude %>
+			</div>
+		</div>
 
-<p>
-  <strong>Alkalinity:</strong>
-  <%= @lake_dest.Alkalinity %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Alkalinity:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Alkalinity %>
+			</div>
+		</div>
 
-<p>
-  <strong>Depth:</strong>
-  <%= @lake_dest.Depth %>
-</p>
-<% if admin?%>
-<%= button_to 'Edit', edit_lake_dest_path(@lake_dest), class: "btn btn-primary", method: "get" %>
-<%= button_to 'Delete', lake_dest_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
-<% end%>
-<%else%>
-<h1><%= @lake_dest.Name %></h1>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Depth:</strong>
+			</div>
+			<div class="col-6">
+				<%= @lake_dest.Depth %>
+			</div>
+		</div>
+		<br>
+		<% if admin?%>
+		<div class="row justify-content-center">
+			<%= button_to 'Edit', edit_lake_dest_path(@lake_dest), class: "btn btn-primary", method: "get", style: "margin-left: 10px;"%>
+			<%= button_to 'Delete', lake_dest_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }, style: "margin-left: 10px;"%>
+		</div>
+		<% end%>
+		<%else%>
 
-<p>
-<%= @lake_dest.Name %> is one of the many lakes we offer tours to. It is located in the <%= @lake_dest.District %> district, Latitude: <%= @lake_dest.Lat %>,
- Longitude: <%= @lake_dest.Long %> to be exact. <%if @lake_dest.River%> It is formed by the <%= @lake_dest.River %>.<%end%> It is considered a <%= @lake_dest.Depth %>,
-  <%= @lake_dest.Altitude %>, <%= @lake_dest.Alkalinity %> lake. You can find more details about it <a href="<%= @lake_dest.Details_Url %>">here</a>.
-</p>
+		<div class="row">
+			<div class="col-12">
+				<%= @lake_dest.Name %> is one of the many lakes we offer tours to. It is located in the <%= @lake_dest.District %> district, Latitude: <%= @lake_dest.Lat %>,
+				Longitude: <%= @lake_dest.Long %> to be exact. <%if @lake_dest.River%> It is formed by the <%= @lake_dest.River %>.<%end%> It is considered a <%= @lake_dest.Depth %>,
+				<%= @lake_dest.Altitude %>, <%= @lake_dest.Alkalinity %> lake. You can find more details about it <a href="<%= @lake_dest.Details_Url %>">here</a>.
+			</div>
+		</div>
 
-<%end%>
-<div id="map" style="height: 600px; width: 50%; margin: auto;"></div>
+		<%end%>
+	</div>
+	<div class="col-6">
+		<div id="map" style="height: 600px; width: 100%; margin: auto;"></div>
+	</div>
+</div>
     <script>
       var map;
       function initMap() {

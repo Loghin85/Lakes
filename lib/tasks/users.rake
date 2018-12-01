@@ -137,6 +137,9 @@ namespace :users do
 		user = users.sample
 		trip = trips.sample
 		persons = rand(1..10)
+		while trip.AvailablePlaces==0
+			trip = trips.sample
+		end
 		while trip.AvailablePlaces<persons
 			persons = rand(1..10)
 		end

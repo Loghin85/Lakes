@@ -1,38 +1,59 @@
 <p id="notice"><%= notice %></p>
+<div class="row" style="width: 100%; padding: 10px;">
+	<div class="col-12">
+		<div class="col-12" style="text-align: center;">
+			<h1><%= @trip.Name %></h1>
+			<br>
+		</div>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Lakes:</strong>
+			</div>
+			<div class="col-6">
+				<% @trip.lake_dest.each do |lake|%>
+					<a class="nounderline" href="/lake_dests/<%=lake.id%>"><%= lake.Name%></a><br>
+				<% end%>
+			</div>
+		</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @trip.Name %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Date:</strong>
+			</div>
+			<div class="col-6">
+				<%= @trip.Date %>
+			</div>
+		</div>
 
-<p>
-  <strong>Lakes:</strong>
-  <ul>
-	<% @trip.lake_dest.each do |lake|%>
-		<li><a class="nounderline" href="/lake_dests/<%=lake.id%>"><%= lake.Name%></a></li>
-	<% end%>
-  </ul>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Price:</strong>
+			</div>
+			<div class="col-6">
+				<%= @trip.Price %>
+			</div>
+		</div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @trip.Date %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @trip.Price %>
-</p>
-
-<p>
-  <strong>Availableplaces:</strong>
-  <%= @trip.AvailablePlaces %>
-</p>
-<% if admin?%>
-<%= button_to 'Edit', edit_trip_path(@trip), class: "btn btn-primary", method: "get" %>
-<%= button_to 'Delete', trip_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
-<% end%>
-<div id="container" class=" " style="width: 50%; height: 400px; float: right; margin: 0 auto"></div>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Availableplaces:</strong>
+			</div>
+			<div class="col-6">
+				<%= @trip.AvailablePlaces %>
+			</div>
+		</div>
+		<br>
+		<% if admin?%>
+		<div class="row justify-content-center">
+			<%= button_to 'Edit', edit_trip_path(@trip), class: "btn btn-primary", method: "get", style: "margin-left: 10px;"%>
+			<%= button_to 'Delete', trip_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }, style: "margin-left: 10px;"%>
+		</div>
+		<% end%>
+	</div>
+	<div class="col-6">
+		<div id="container" class=" " style="width: 100%; height: 400px; float: right; margin: 0 auto"></div>
+	</div>
+</div>
 
 <script type="text/javascript">
 Highcharts.chart('container', {
@@ -56,14 +77,14 @@ Highcharts.chart('container', {
         enabled: true,
         format: '<b>{point.name}</b>: {point.y}',
         style: {
-          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          col-6or: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
         }
       }
     }
   },
   series: [{
     name: 'Brands',
-    colorByPoint: true,
+    col-6orByPoint: true,
     data: [{
       name: 'Free',
       y: <%= raw @trip.AvailablePlaces%>,

@@ -1,31 +1,60 @@
 <p id="notice"><%= notice %></p>
+<div class="row" style="width: 100%; padding: 10px;">
+	<div class="col-12">
+		<div class="col-12" style="text-align: center;">
+			<h1>Booking No. <%=@booking.id%></h1>
+			<br>
+		</div>
+		<%if admin?%>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>User:</strong>
+			</div>
+			<div class="col-6">
+				<a class="nounderline" href="/users/<%=@booking.user_id%>"><%= User.find(@booking.user_id).full_name %></a>
+			</div>
+		</div>
+		<%end%>
 
-<%if admin?%>
-<p>
-  <strong>User:</strong>
-  <a class="nounderline" href="/users/<%=@booking.user_id%>"><%= User.find(@booking.user_id).full_name %></a>
-</p>
-<%end%>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Number of persons:</strong>
+			</div>
+			<div class="col-6">
+				<%= @booking.NoOfPersons %>
+			</div>
+		</div>
 
-<p>
-  <strong>Number of persons:</strong>
-  <%= @booking.NoOfPersons %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Trip:</strong>
+			</div>
+			<div class="col-6">
+				<a class="nounderline" href="/trips/<%=@booking.trip_id%>"><%= Trip.find(@booking.trip_id).Name %></a>
+			</div>
+		</div>
 
-<p>
-  <strong>Trip:</strong>
-  <a class="nounderline" href="/trips/<%=@booking.trip_id%>"><%= Trip.find(@booking.trip_id).Name %></a>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Date:</strong>
+			</div>
+			<div class="col-6">
+				<%= @date %>
+			</div>
+		</div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @date %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @price %>
-</p>
-
-<%= button_to 'Edit', edit_booking_path(@booking), class: "btn btn-primary", method: "get" %>
-<%= button_to 'Delete', booking_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Price:</strong>
+			</div>
+			<div class="col-6">
+				<%= @price %>
+			</div>
+		</div>
+		<br>
+		<div class="row justify-content-center">
+				<%= button_to 'Edit', edit_booking_path(@booking), class: "btn btn-primary", method: "get" , style: "margin-left: 10px;"%>
+				<%= button_to 'Delete', booking_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }, style: "margin-left: 10px;"%>
+		</div>
+	</div>
+</div>

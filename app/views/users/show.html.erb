@@ -1,60 +1,112 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %>	</div>
+		</div>
+<div class="row" style="width: 100%; padding: 10px;">
+	<div class="col-6">
+		<div class="col-12" style="text-align: center;">
+			<%if admin?%>
+				<h1>User No. <%=@user.id%></h1>
+			<%else%>
+				<h1>Hi, <%=@user.Lname%>!</h1>
+			<%end%>
+		</div>
+		<%if admin?%>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Fname:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Fname %>
+			</div>
+		</div>
 
-<p>
-  <strong>Fname:</strong>
-  <%= @user.Fname %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Lname:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Lname %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Privilege:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Privilege %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Cardregistered:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.CardRegistered %>
+			</div>
+		</div>
+		<%end%>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Email:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Email %>
+			</div>
+		</div>
 
-<p>
-  <strong>Lname:</strong>
-  <%= @user.Lname %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Address:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Address %>
+			</div>
+		</div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.Email %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Postcode:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Postcode %>
+			</div>
+		</div>
 
-<p>
-  <strong>Address:</strong>
-  <%= @user.Address %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>City:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.City %>
+			</div>
+		</div>
 
-<p>
-  <strong>Postcode:</strong>
-  <%= @user.Postcode %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Country:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Country %>
+			</div>
+		</div>
 
-<p>
-  <strong>City:</strong>
-  <%= @user.City %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @user.Country %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @user.Phone %>
-</p>
-
-<p>
-  <strong>Privilege:</strong>
-  <%= @user.Privilege %>
-</p>
-
-<p>
-  <strong>Cardregistered:</strong>
-  <%= @user.CardRegistered %>
-</p>
-
-
-<%= button_to 'Edit', edit_user_path(@user), class: "btn btn-primary", method: "get" %>
-<%= button_to 'Delete', user_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
-
-<div id="container" class=" " style="width: 50%; height: 400px; float: right; margin: 0 auto"></div>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Phone:</strong>
+			</div>
+			<div class="col-6">
+				<%= @user.Phone %>
+			</div>
+		</div>
+		<br>
+		<div class="row justify-content-center">
+			<%= button_to 'Edit', edit_user_path(@user), class: "btn btn-primary", method: "get", style: "margin-left: 10px;"%>
+			<%= button_to 'Delete', user_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }, style: "margin-left: 10px;"%>
+		</div>
+	</div>
+	<div class="col-6">
+		<div id="container" class=" " style="width: 100%; height: 400px; float: right; margin: 0 auto"></div>
+	</div>
+</div>
 
 <script type="text/javascript">
 var pointStart = new Date();

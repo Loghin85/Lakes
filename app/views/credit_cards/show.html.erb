@@ -1,31 +1,60 @@
 <p id="notice"><%= notice %></p>
+<div class="row" style="width: 100%; padding: 10px;">
+	<div class="col-12">
+		<div class="col-12" style="text-align: center;">
+			<h1>Credit card details</h1>
+			<br>
+		</div>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Number:</strong>
+			</div>
+			<div class="col-6">
+				<%= @credit_card.number %>
+			</div>
+		</div>
 
-<p>
-  <strong>Number:</strong>
-  <%= @credit_card.number %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Exp date:</strong>
+			</div>
+			<div class="col-6">
+				<%= @credit_card.exp_date %>
+			</div>
+		</div>
 
-<p>
-  <strong>Exp date:</strong>
-  <%= @credit_card.exp_date %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Name on card:</strong>
+			</div>
+			<div class="col-6">
+				<%= @credit_card.name_on_card %>
+			</div>
+		</div>
 
-<p>
-  <strong>Name on card:</strong>
-  <%= @credit_card.name_on_card %>
-</p>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>Organisation:</strong>
+			</div>
+			<div class="col-6">
+				<%= @credit_card.organisation %>
+			</div>
+		</div>
 
-<p>
-  <strong>Organisation:</strong>
-  <%= @credit_card.organisation %>
-</p>
-
-<%if admin?%>
-<p>
-  <strong>User:</strong>
-  <%= @credit_card.user.Lname %>
-</p>
-<%end%>
-
-<%= button_to 'Edit', edit_credit_card_path(@credit_card), class: "btn btn-primary", method: "get" %>
-<%= button_to 'Delete', credit_card_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }%>
+		<%if admin?%>
+		<div class="row">
+			<div class="col-6" style="text-align: right;">
+				<strong>User:</strong>
+			</div>
+			<div class="col-6">
+				<a class="nounderline" href="/users/<%=@credit_card.user.id%>"><%= @credit_card.user.full_name %></a>
+			</div>
+		</div>
+		<%end%>
+		<br>
+		<div class="row justify-content-center">
+			<%= button_to 'Edit', edit_credit_card_path(@credit_card), class: "btn btn-primary", method: "get", style: "margin-left: 10px;"%>
+			<%= button_to 'Delete', credit_card_path, class: "btn btn-primary", method: "delete", data: { confirm: 'Are you sure?' }, style: "margin-left: 10px;"%>
+		</div>
+	</div>
+</div>
