@@ -36,8 +36,9 @@ class BookingsController < ApplicationController
 		@users = User.all
 		@trips = Trip.all
 	else
-		@trip = Trip.find_by(id: params[:trip_id])
-		
+		if Trip.ids.include?(params[:trip_id].to_i)
+			@trip = Trip.find_by(id: params[:trip_id])
+		end
 	end
   end
 
@@ -51,7 +52,9 @@ class BookingsController < ApplicationController
   end
 
   def pay
-	@booking = Booking.find_by(id: params[:trip_id])
+	if Trip.ids.include?(params[:trip_id].to_i)
+		@booking = Booking.find_by(id: params[:trip_id])
+	end
 	@trip = Trip.find_by(id: @booking.trip_id)
 	@cards = CreditCard.where(user_id: current_user.id)
   end

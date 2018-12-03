@@ -45,6 +45,9 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'sendgrid-ruby'
 #gem 'nouislider-rails'
+gem 'activerecord-session_store'
+gem 'devise'
+gem "recaptcha"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -52,6 +55,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'faker'
   gem 'geocoder'
+  gem 'brakeman'
 end
 
 group :production do

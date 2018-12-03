@@ -19,7 +19,7 @@ class TripsController < ApplicationController
 		@DateMax = params[:DateMax]
 	end
 	if params[:Persons]
-		@trips = @trips.where('"trips"."AvailablePlaces" >= ?', params[:Persons])
+		@trips = @trips.where('"trips"."AvailablePlaces" >= ?', params[:Persons].to_i)
 		@Persons = params[:Persons]
 	end
 	@names = []
@@ -57,7 +57,7 @@ class TripsController < ApplicationController
 		lake_b = nil
 		price = 0
 		params[:trip][:lake_dests].each do |id|
-			lake = LakeDest.find_by(id: id)
+			lake = LakeDest.find_by(id: id.to_i)
 			lakes += lake.Name + " "
 			if lake_b == nil
 				price += Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake.Lat,lake.Long])*0.5 + 20
@@ -73,7 +73,7 @@ class TripsController < ApplicationController
 	
 	if params[:trip][:lake_dests]
 		params[:trip][:lake_dests].each do |id|
-			lake = LakeDest.find_by(id: id)
+			lake = LakeDest.find_by(id: id.to_i)
 			@trip.lake_dest << lake
 		end
 	end
@@ -99,7 +99,7 @@ class TripsController < ApplicationController
 		lake_b = nil
 		price = 0
 		params[:trip][:lake_dests].each do |id|
-			lake = LakeDest.find_by(id: id)
+			lake = LakeDest.find_by(id: id.to_i)
 			lakes += lake.Name + ", "
 			if lake_b == nil
 				price += Geocoder::Calculations.distance_between([57.1497,-2.0943], [lake.Lat,lake.Long])*0.5 + 20
@@ -114,12 +114,12 @@ class TripsController < ApplicationController
 	
 	if lakes != @trip.Lakes
 		@trip.Lakes.split(", ").each do |name|
-			lake = LakeDest.find_by(Name: name)
+			lake = LakeDest.find_by(:Name, name)
 			@trip.lake_dest.destroy(lake)
 		end
 		
 		params[:trip][:lake_dests].each do |id|
-			lake = LakeDest.find_by(id: id)
+			lake = LakeDest.find_by(id: id.to_i)
 			@trip.lake_dest << lake
 		end
 	end

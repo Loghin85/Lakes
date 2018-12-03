@@ -44,7 +44,7 @@ class CreditCardsController < ApplicationController
   def create
     @credit_card = CreditCard.new(credit_card_params)
 	@credit_card.exp_date = params[:exp_date][:year].to_s + "/" + params[:exp_date][:month].to_s
-	User.find_by(id: params[:credit_card][:user_id]).update_attribute("CardRegistered", true)
+	User.find_by("id = ", "%#{params[:credit_card][:user_id]}%").update_attribute("CardRegistered", true)
 
     respond_to do |format|
       if @credit_card.save

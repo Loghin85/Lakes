@@ -15,6 +15,7 @@ class LakeDestsController < ApplicationController
 	@selectedAltitudes = []
 	@selectedAlkalinities = []
 	@selectedDepths = []
+	@Rivers = []
 	@AreaMin = 0
 	@AreaMax = 100
 	@LatMin = -90
@@ -46,7 +47,7 @@ class LakeDestsController < ApplicationController
 	end
 	if params[:River]
 		@lake_dests = @lake_dests.where(River: params[:River])
-		
+		@Rivers = params[:River]
 	end
 	if params[:Altitude]
 		@lake_dests = @lake_dests.where(Altitude: params[:Altitude])
@@ -67,6 +68,7 @@ class LakeDestsController < ApplicationController
 	@selectedAltitudes = []
 	@selectedAlkalinities = []
 	@selectedDepths = []
+	@Rivers = []
 	@AreaMin = 0
 	@AreaMax = 100
 	@LatMin = -90
@@ -95,44 +97,56 @@ class LakeDestsController < ApplicationController
   # POST /lake_dests
   # POST /lake_dests.json
   def create
-    @lake_dest = LakeDest.new(lake_dest_params)
+	if admin?
+		@lake_dest = LakeDest.new(lake_dest_params)
 
-    respond_to do |format|
-      if @lake_dest.save
-        format.html { redirect_to @lake_dest
-					flash[:info] = 'Lake dest was successfully created.' }
-        format.json { render :show, status: :created, location: @lake_dest }
-      else
-        format.html { render :new }
-        format.json { render json: @lake_dest.errors, status: :unprocessable_entity }
-      end
-    end
+		respond_to do |format|
+		  if @lake_dest.save
+			format.html { redirect_to @lake_dest
+						flash[:info] = 'Lake dest was successfully created.' }
+			format.json { render :show, status: :created, location: @lake_dest }
+		  else
+			format.html { render :new }
+			format.json { render json: @lake_dest.errors, status: :unprocessable_entity }
+		  end
+		end
+	else
+		naughty_user
+	end
   end
 
   # PATCH/PUT /lake_dests/1
   # PATCH/PUT /lake_dests/1.json
   def update
-    respond_to do |format|
-      if @lake_dest.update(lake_dest_params)
-        format.html { redirect_to @lake_dest
-					flash[:info] = 'Lake dest was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lake_dest }
-      else
-        format.html { render :edit }
-        format.json { render json: @lake_dest.errors, status: :unprocessable_entity }
-      end
-    end
+	if admin?
+		respond_to do |format|
+		  if @lake_dest.update(lake_dest_params)
+			format.html { redirect_to @lake_dest
+						flash[:info] = 'Lake dest was successfully updated.' }
+			format.json { render :show, status: :ok, location: @lake_dest }
+		  else
+			format.html { render :edit }
+			format.json { render json: @lake_dest.errors, status: :unprocessable_entity }
+		  end
+		end
+	else
+		naughty_user
+	end
   end
 
   # DELETE /lake_dests/1
   # DELETE /lake_dests/1.json
   def destroy
-    @lake_dest.destroy
-    respond_to do |format|
-      format.html { redirect_to lake_dests_url
-					flash[:info] = 'Lake dest was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+	if admin?
+		@lake_dest.destroy
+		respond_to do |format|
+		  format.html { redirect_to lake_dests_url
+						flash[:info] = 'Lake dest was successfully destroyed.' }
+		  format.json { head :no_content }
+		end
+	else
+		naughty_user
+	end
   end
 
   private

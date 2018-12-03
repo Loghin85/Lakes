@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_action :logged_in_user, only: [:create, :show, :new, :destroy]
-  skip_before_action :admin_user, only: [:create,:show, :new, :destroy]
+  skip_before_action :admin_user, only: [:create,:show, :new, :destroy, :edit, :update]
 
   # GET /users
   # GET /users.json
@@ -22,7 +22,6 @@ class UsersController < ApplicationController
 	no = Booking.where(created_at: date.midnight..date.end_of_day).where(user_id: current_user.id).count
 	@activity[date] = no
 	}
-	p @activity.to_json
 	
   end
 
@@ -39,14 +38,13 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-	p @user
-      if @user.save
+    if verify_recaptcha(model: @user) && @user.save  
 		@user.send_activation_email
 		flash[:info] = "Please check your email to activate your account."
 		redirect_to root_url
-      else
-        render 'new'
-      end
+	else
+		render 'new'
+	end
   end
 
   # PATCH/PUT /users/1
@@ -55,22 +53,26 @@ class UsersController < ApplicationController
 	if !logged_in? || (!admin? && !(current_user == @user))
 		naughty_user
 	else
-		problem = false
-		update_params.each do |param|
-			p param
-			if !@user.update_attribute(param[0], param[1])
-				problem = true
+		if verify_recaptcha(model: @user)
+			problem = false
+			update_params.each do |param|
+				if !@user.update_attribute(param[0], param[1])
+					problem = true
+				end
 			end
-		end
-		respond_to do |format|
-		  if !problem
-			format.html { redirect_to @user
-						flash[:info] = 'User was successfully updated.' }
-			format.json { render :show, status: :ok, location: @user }
-		  else
-			format.html { render :edit }
-			format.json { render json: @user.errors, status: :unprocessable_entity }
-		  end
+			respond_to do |format|
+			  if !problem
+				format.html { redirect_to @user
+							flash[:info] = 'User was successfully updated.' }
+				format.json { render :show, status: :ok, location: @user }
+			  else
+				format.html { render :edit }
+				format.json { render json: @user.errors, status: :unprocessable_entity }
+			  end
+			end
+		else
+		  flash[:info] = 'ReCAPTCHA not validated'
+		  render 'edit'
 		end
 	end
   end

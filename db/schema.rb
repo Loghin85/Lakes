@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_203821) do
+ActiveRecord::Schema.define(version: 2018_12_02_144916) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "NoOfPersons"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 2018_11_23_203821) do
   create_table "lake_dests_trips", id: false, force: :cascade do |t|
     t.integer "lake_dest_id", null: false
     t.integer "trip_id", null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "trips", force: :cascade do |t|
