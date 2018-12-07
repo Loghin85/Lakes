@@ -69,8 +69,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   
   test "should not get edit(not logged in)" do
     get edit_user_path(@user)
-    assert_response :redirect
-    assert flash[:info] = "Please log in."
+    assert_redirected_to login_url
   end
   
   test "should get edit(user)" do

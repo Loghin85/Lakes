@@ -1,15 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  number: MyString
-  exp_date: MyString
-  name_on_card: MyString
-  organisation: MyString
+  number: "0322489156115"
+  exp_date: "2021/4"
+  name_on_card: "User 1"
+  organisation: "Visa"
   user_id: 123
 
-two:
-  number: MyString
-  exp_date: MyString
-  name_on_card: MyString
-  organisation: MyString
-  user_id: 1234

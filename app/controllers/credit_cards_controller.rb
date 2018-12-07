@@ -1,7 +1,6 @@
 class CreditCardsController < ApplicationController
   before_action :set_credit_card, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_user
-  skip_before_action :admin_user, only: [:index, :create, :show, :new, :destroy]
+  skip_before_action :admin_user, only: [:index, :create, :show, :new, :destroy, :edit, :update]
 
   # GET /credit_cards
   # GET /credit_cards.json
@@ -44,7 +43,7 @@ class CreditCardsController < ApplicationController
   def create
     @credit_card = CreditCard.new(credit_card_params)
 	@credit_card.exp_date = params[:exp_date][:year].to_s + "/" + params[:exp_date][:month].to_s
-	User.find_by("id = ", "%#{params[:credit_card][:user_id]}%").update_attribute("CardRegistered", true)
+	User.find_by(id: params[:credit_card][:user_id]).update_attribute("CardRegistered", true)
 
     respond_to do |format|
       if @credit_card.save
@@ -106,6 +105,6 @@ class CreditCardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def credit_card_params
-      params.require(:credit_card).permit(:number, :exp_date, :name_on_card, :organisation, :user_id)
+      params.require(:credit_card).permit(:number, :name_on_card, :organisation, :user_id, exp_date: [:year, :date, :month])
     end
 end
