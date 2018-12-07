@@ -64,12 +64,14 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
 	@trip = Trip.find_by(id: @booking.trip_id)
+	@user = User.find_by(id: @booking.user_id)
 	if @booking.NoOfPersons>@trip.AvailablePlaces
 		flash[:warning] = 'Not enough places available'
 		render 'new'
 	else
 		@trip.AvailablePlaces -= @booking.NoOfPersons
-		@booking.trip << @trip
+		@booking.trip_id = @trip.id
+		@booking.user_id = @user.id
 		@trip.save
 	
     respond_to do |format|
