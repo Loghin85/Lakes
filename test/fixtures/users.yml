@@ -1,27 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  Fname: MyString
-  Lname: MyString
-  Email: MyString
-  Address: MyString
-  Postcode: MyString
-  City: MyString
-  Country: MyString
-  Phone: MyString
-  Privilege: MyString
-  CardRegistered: MyString
-  Password: MyString
+user:
+    Fname: "User"
+    Lname: "1"
+    Email: "user@abdn.ac.uk"
+    Address: "-"
+    Postcode: "-"
+    City: "-"
+    Country: "-"
+    Phone: "-"
+    Privilege: "User"
+    activated: true
+    activated_at: <%= Time.zone.now =>
+    password_digest: $2a$04$sW3qmCSXOiHE0u8Td32yqONirb7WhG31onAGrEUiJSfuyYR5rGlcq
 
-two:
-  Fname: MyString
-  Lname: MyString
-  Email: MyString
-  Address: MyString
-  Postcode: MyString
-  City: MyString
-  Country: MyString
-  Phone: MyString
-  Privilege: MyString
-  CardRegistered: MyString
-  Password: MyString
+admin:
+    Fname: "Admin"
+    Lname: "1"
+    Email: "admin@abdn.ac.uk"
+    Address: "-"
+    Postcode: "-"
+    City: "-"
+    Country: "-"
+    Phone: "-"
+    Privilege: "Admin"
+    activated: true
+    activated_at: <%= Time.zone.now =>
+    password_digest: $2a$04$sW3qmCSXOiHE0u8Td32yqONirb7WhG31onAGrEUiJSfuyYR5rGlcq
+
+

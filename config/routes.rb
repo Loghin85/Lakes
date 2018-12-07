@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   default_url_options :host => "example.com"
-  devise_for :users
   get 'lakes/index'
   root 'lakes#index'
   get '/login', to: 'sessions#new'

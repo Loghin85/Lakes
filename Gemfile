@@ -46,7 +46,6 @@ gem 'jquery-rails'
 gem 'sendgrid-ruby'
 #gem 'nouislider-rails'
 gem 'activerecord-session_store'
-gem 'devise'
 gem "recaptcha"
 
 group :development, :test do
@@ -56,6 +55,10 @@ group :development, :test do
   gem 'faker'
   gem 'geocoder'
   gem 'brakeman'
+  gem "database_cleaner"
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 group :production do

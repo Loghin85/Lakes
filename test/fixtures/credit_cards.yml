@@ -5,11 +5,11 @@ one:
   exp_date: MyString
   name_on_card: MyString
   organisation: MyString
-  customer: one
+  user_id: 123
 
 two:
   number: MyString
   exp_date: MyString
   name_on_card: MyString
   organisation: MyString
-  customer: two
+  user_id: 1234
