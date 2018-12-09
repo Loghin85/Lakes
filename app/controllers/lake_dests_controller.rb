@@ -62,22 +62,6 @@ class LakeDestsController < ApplicationController
 		@selectedDepths = params[:Depth]
 	end
   end
-  
-  def resetFilter
-	@selectedDistricts = []
-	@selectedAltitudes = []
-	@selectedAlkalinities = []
-	@selectedDepths = []
-	@Rivers = []
-	@AreaMin = 0
-	@AreaMax = 100
-	@LatMin = -90
-	@LatMax = 90
-	@LongMin = -180
-	@LongMax = 180
-	@lake_dests = LakeDest.all
-	redirect_to :index
-  end
 
   # GET /lake_dests/1
   # GET /lake_dests/1.json
