@@ -1,5 +1,6 @@
 <%= form_with(model: credit_card, local: true) do |form| %>
   <% if credit_card.errors.any? %>
+  <div class="row justify-content-center">
     <div id="error_explanation">
       <h2><%= pluralize(credit_card.errors.count, "error") %> prohibited this credit_card from being saved:</h2>
 
@@ -9,39 +10,71 @@
       <% end %>
       </ul>
     </div>
+  </div>
   <% end %>
   
-  <div class="field">
-    <%= form.label :organisation %>
-    <%= form.select :organisation, CreditCard.organisations.keys, prompt: 'Select a card type' %>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :organisation %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.select :organisation, CreditCard.organisations.keys, prompt: 'Select a card type' %>
+			</div>
+		  </div>
 
-  <div class="field">
-    <%= form.label :number %>
-    <%= form.text_field :number %>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :number %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :number %>
+			</div>
+		  </div>
 
-  <div class="field">
-    <%= form.label :exp_date %>
-     <%= select_date Date.today, prefix: :exp_date , :discard_day => true, :use_month_numbers => true, :use_two_digit_numbers => true, :start_year => Date.today.year%>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :exp_date %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= select_date Date.today, prefix: :exp_date , :discard_day => true, :use_month_numbers => true, :use_two_digit_numbers => true, :start_year => Date.today.year%>
+			</div>
+		  </div>
 
-  <div class="field">
-    <%= form.label :name_on_card %>
-    <%= form.text_field :name_on_card %>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :name_on_card %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :name_on_card %>
+			</div>
+		  </div>
 
   <%if admin?%>
-	  <div class="field">
-		<%= form.label :user_id %>
-		<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
-	  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :user_id %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
+			</div>
+		  </div>
   <%else%>
 	<%= form.hidden_field :user_id, :value => current_user.id %>
   <%end%>
 
-  <div class="actions">
-    <%= form.submit class: "btn btn-primary" %>
-	<% end %>
-	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
-  </div>
+		<br>
+		<div class="row justify-content-center">
+			<%= form.submit class: "btn btn-primary" , style: "margin-left: 10px;" %>
+			<% end %>
+			<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get", style: "margin-left: 10px;"  %>
+		</div>

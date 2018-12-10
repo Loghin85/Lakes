@@ -1,5 +1,6 @@
 <%= form_with(model: trip, local: true) do |form| %>
   <% if trip.errors.any? %>
+  <div class="row justify-content-center">
     <div id="error_explanation">
       <h2><%= pluralize(trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
 
@@ -9,30 +10,53 @@
       <% end %>
       </ul>
     </div>
+  </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :Name %>
-    <%= form.text_field :Name %>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :Name %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Name %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :lake_dests, "Lakes in this trip" %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.collection_select(:lake_dests, @lakes, :id, :Name, {:prompt => true, include_hidden: false}, {:multiple => true}) %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Date %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.date_select :Date %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :AvailablePlaces %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.number_field :AvailablePlaces %>
+			</div>
+		</div>	
+		<br>
 
-  <div class="field">
-    <%= form.label :lake_dests %>
-	<%= form.collection_select(:lake_dests, @lakes, :id, :Name, {:prompt => true, include_hidden: false}, {:multiple => true}) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Date %>
-    <%= form.date_select :Date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :AvailablePlaces %>
-    <%= form.number_field :AvailablePlaces %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit class: "btn btn-primary" %>
-	<% end %>
-	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
-  </div>
+		<div class="row justify-content-center">
+			<%= form.submit class: "btn btn-primary", style: "margin-left: 10px;" %>
+			<% end %>
+			<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get", style: "margin-left: 10px;" %>
+		</div>

@@ -1,5 +1,6 @@
 <%= form_with(model: lake_dest, local: true) do |form| %>
   <% if lake_dest.errors.any? %>
+  <div class="row justify-content-center">
     <div id="error_explanation">
       <h2><%= pluralize(lake_dest.errors.count, "error") %> prohibited this lake_dest from being saved:</h2>
 
@@ -9,60 +10,112 @@
       <% end %>
       </ul>
     </div>
+  </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :Name %>
-    <%= form.text_field :Name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Area %>
-    <%= form.text_field :Area %>
-  </div>
-
-  <div class="field">
-    <%= form.label :District %>
-    <%= form.text_field :District %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Lat %>
-    <%= form.text_field :Lat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Long %>
-    <%= form.text_field :Long %>
-  </div>
-
-  <div class="field">
-    <%= form.label :River %>
-    <%= form.text_field :River %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Details_Url %>
-    <%= form.text_field :Details_Url %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Altitude %>
-    <%= form.text_field :Altitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Alkalinity %>
-    <%= form.text_field :Alkalinity %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Depth %>
-    <%= form.text_field :Depth %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit class:"btn btn-primary" %>
-	<% end %>
-	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+				<%= form.label :Name %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Name %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Area %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Area %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :District %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :District %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Lat , "Latitude"%>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Lat %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Long , "Longitude" %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Long %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :River %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :River %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Details_Url %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Details_Url %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Altitude , "Altitude category"%>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Altitude %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Alkalinity , "Alkalinity category"%>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Alkalinity %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">  
+					<%= form.label :Depth , "Depth category"%>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Depth %>
+			</div>
+		  </div>
+		<br>
+		<div class="row justify-content-center">
+			<%= form.submit class:"btn btn-primary" , style: "margin-left: 10px;"%>
+			<% end %>
+			<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" , style: "margin-left: 10px;"%>
+		</div>

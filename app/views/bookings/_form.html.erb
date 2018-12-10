@@ -1,5 +1,6 @@
 <%= form_with(model: booking, local: true) do |form| %>
   <% if booking.errors.any? %>
+  <div class="row justify-content-center">
     <div id="error_explanation">
       <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
 
@@ -9,56 +10,100 @@
       <% end %>
       </ul>
     </div>
+  </div>
   <% end %>
+		  <%if admin?%>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :user_id %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :trip_id %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.collection_select :trip_id, @trips, :id, :Name, :prompt => "Select a Trip" %>
+			</div>
+		  </div>
+		  <%else%>
+			<%= form.hidden_field :user_id, :value => current_user.id %>
+			<%= form.hidden_field :trip_id, :value => @trip.id %>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Name:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Name %>
+			</div>
+		</div>
 
-  <%if admin?%>
-	  <div class="field">
-		<%= form.label :user_id %>
-		<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
-	  </div>
-	  
-	  
-	  <div class="field">
-		<%= form.label :trip_id %>
-		<%= form.collection_select :trip_id, @trips, :id, :Name, :prompt => "Select a Trip" %>
-	  </div>
-  <%else%>
-	<%= form.hidden_field :user_id, :value => current_user.id %>
-	<%= form.hidden_field :trip_id, :value => @trip.id %>
-	<p>
-	  <strong>Name:</strong>
-	  <%= @trip.Name %>
-	</p>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Lakes:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Lakes %>
+			</div>
+		</div>
 
-	<p>
-	  <strong>Lakes:</strong>
-	  <%= @trip.Lakes %>
-	</p>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Date:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Date %>
+			</div>
+		</div>
 
-	<p>
-	  <strong>Date:</strong>
-	  <%= @trip.Date %>
-	</p>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Price per person:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Price %>
+			</div>
+		</div>
 
-	<p>
-	  <strong>Price per person:</strong>
-	  <%= @trip.Price %>
-	</p>
-
-	<p>
-	  <strong>Availableplaces:</strong>
-	  <%= @trip.AvailablePlaces %>
-	</p>
-  <%end%>
-  <div class="field">
-    <%= form.label :NoOfPersons, "Number of persons" %>
-    <%= form.number_field :NoOfPersons, value: '1', in: 1..20 %>
-  </div>
-  
-  
-
-  <div class="actions">
-    <%= form.submit class: "btn btn-primary" %>
-	<% end %>
-	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
-  </div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Availableplaces:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.AvailablePlaces %>
+			</div>
+		</div>
+		  <%end%>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :NoOfPersons, "Number of persons" %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.number_field :NoOfPersons, value: '1', in: 1..20 %>
+			</div>
+		</div>	
+		<br>
+		<div class="row justify-content-center">
+			<%= form.submit class: "btn btn-primary" , style: "margin-left: 10px;" %>
+			<% end %>
+			<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" , style: "margin-left: 10px;" %>
+		</div>

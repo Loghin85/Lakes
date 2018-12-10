@@ -45,9 +45,6 @@
 		  </li>
 	  <%end%>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    </form>
 	
 	<ul class="navbar-nav">
 	<%if logged_in?%>
@@ -65,7 +62,10 @@
       </li>
 	<%else%>
 	  <li class="nav-item">
-        <a class="btn btn-outline-secondary" href="/login">Login</a>
+		<div class="btn-group" role="group" aria-label="Basic example">
+		  <a class="btn btn-outline-secondary" href="/login">Login</a>
+		  <a class="btn btn-outline-secondary" href="/users/new">Sign up</a>
+		</div>
       </li>
 	<%end%>
 	</ul>

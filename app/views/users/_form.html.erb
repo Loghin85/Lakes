@@ -1,5 +1,6 @@
 <%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
+  <div class="row justify-content-center">
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
@@ -9,71 +10,131 @@
       <% end %>
       </ul>
     </div>
+  </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :Fname %>
-    <%= form.text_field :Fname %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Lname %>
-    <%= form.text_field :Lname %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Email %>
-    <%= form.text_field :Email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Address %>
-    <%= form.text_field :Address %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Postcode %>
-    <%= form.text_field :Postcode %>
-  </div>
-
-  <div class="field">
-    <%= form.label :City %>
-    <%= form.text_field :City %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Country %>
-    <%= form.text_field :Country %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Phone %>
-    <%= form.text_field :Phone %>
-  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label :Fname %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Fname %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Lname %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Lname %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Email %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Email %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Address %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Address %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Postcode %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Postcode %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :City %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :City %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Country %>
+				</div>
+			</div>
+			<div class="col-6">
+					<%= form.text_field :Country %>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Phone %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.text_field :Phone %>
+			</div>
+		  </div>
   
   <%if admin?%>
-	  <div class="field">
-		<%= form.label :Privilege %>
-		<%= form.radio_button :Privilege, "User"%>
-		<%= label :Privilege_User, 'User' %>
-		<%= form.radio_button :Privilege, "Admin"%>
-		<%= label :Privilege_Admin, 'Admin' %>
-	  </div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :Privilege %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.radio_button :Privilege, "User"%>
+				<%= label :Privilege_User, 'User' %>
+				<%= form.radio_button :Privilege, "Admin"%>
+				<%= label :Privilege_Admin, 'Admin' %>
+			</div>
+		</div>
   <%else%>
 	<%if !logged_in?%>
-		<div class="field">
-			<%= form.label :password %>
-			<%= form.password_field :password %>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :password %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.password_field :password %>
+			</div>
 		</div>
-		<div class="field">
-			<%= form.label :password_confirmation %>
-			<%= form.password_field :password_confirmation %>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right"> 
+					<%= form.label :password_confirmation %>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= form.password_field :password_confirmation %>
+			</div>
 		</div>
 	<%end%>
   <%end%>
-
-  <div class="actions">
-	<%= invisible_recaptcha_tags text: 'Submit',  class: "btn btn-primary" %>
-	<% end %>
-	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
-  </div>
+		<br>
+		<div class="row justify-content-center">
+			<%= invisible_recaptcha_tags text: 'Submit',  class: "btn btn-primary" , style: "margin-left: 10px;" %>
+			<% end %>
+			<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" , style: "margin-left: 10px;" %>
+		</div>
