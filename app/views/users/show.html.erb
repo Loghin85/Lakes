@@ -116,10 +116,10 @@ Date.parse(pointStart);
 console.log(pointStart);
 chart = Highcharts.chart('container', {
     chart       : { type    : 'area' },
-        title       : { text: 'Your last year activity'},
+        title       : { text: "<%=raw @user.Fname%>'s last year activity"},
         legend      : { enabled : true },
 		tooltip: {
-			pointFormat: 'You have booked {point.y:,.0f} trips'
+			pointFormat: '{point.y:,.0f} trips booked'
 		},
         plotOptions : {
             series  : {

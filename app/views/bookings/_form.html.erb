@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
+				<%= form.collection_select :user_id, @users, :id, :full_name, {:prompt => "Select an user"} , {:required => true}%>
 			</div>
 		  </div>
 		  <div class="row">
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.collection_select :trip_id, @trips, :id, :Name, :prompt => "Select a Trip" %>
+				<%= form.collection_select :trip_id, @trips, :id, :Name, {:prompt => "Select a Trip"} , {:required => true}%>
 			</div>
 		  </div>
 		  <%else%>
@@ -98,7 +98,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.number_field :NoOfPersons, value: '1', in: 1..20 %>
+				<%= form.number_field :NoOfPersons, value: '1', in: 1..20 , :required => true%>
 			</div>
 		</div>	
 		<br>

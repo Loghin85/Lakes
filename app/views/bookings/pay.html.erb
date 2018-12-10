@@ -1,50 +1,92 @@
-<h1>Pay for booking</h1>
-	<%= form_for @booking, url: {action: "update"} do |form| %>
-	<p>
-	  <strong>Name:</strong>
-	  <%= @trip.Name %>
-	</p>
-
-	<p>
-	  <strong>Lakes:</strong>
-	  <%= @trip.Lakes %>
-	</p>
-
-	<p>
-	  <strong>Date:</strong>
-	  <%= @trip.Date %>
-	</p>
-
-	<p>
-	  <strong>Price per person:</strong>
-	  <%= @trip.Price%>
-	</p>
-
-	<p>
-	  <strong>NoOfPersons:</strong>
-	  <%= @booking.NoOfPersons %>
-	</p>
-	
-	<p>
-		<strong>Total:</strong>
-		<%= @trip.Price*@booking.NoOfPersons %>
-	</p>
-	
-	<div class="field">
-		<%= form.label "Payment method:"%>
-		<% if !@cards.empty? %>
-			<% @cards.each do |card|%>
-				<%= form.radio_button :Paid, true%>
-				<%= label :PaidTrue, "Card ending in "+card.number.split(//).last(4).join %>
-			<%end%>
-		<%else%>
-			If you want to pay by credit card you will have to add it to you account
-		<%end%>
-		<%= form.radio_button :Paid, false%>
-		<%= label :PaidFalse, "Pay cash on the day" %>
+<div class="row" style="width: 100%; padding: 10px;">
+	<div class="col-12">
+		<div class="col-12" style="text-align: center;">
+			<h1>Pay for booking</h1>
+		</div>
+<%= form_for @booking, url: {action: "update"} do |form| %>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Name:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Name %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Lakes:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Lakes %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Date:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Date %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Price per person:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @trip.Price%>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>NoOfPersons:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+			  <%= @booking.NoOfPersons %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<strong>Total:</strong>
+				</div>
+			</div>
+			<div class="col-6">
+				<%= @trip.Price*@booking.NoOfPersons %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="float-right">
+					<%= form.label "Payment method:"%>
+				</div>
+			</div>
+			<div class="col-6">
+				<% if !@cards.empty? %>
+					<% @cards.each do |card|%>
+						<%= form.radio_button :Paid, true%>
+						<%= label :PaidTrue, "Card ending in "+card.number.split(//).last(4).join %>
+					<%end%>
+				<%else%>
+					If you want to pay by credit card you will have to add it to you account
+				<%end%>
+				<%= form.radio_button :Paid, false%>
+				<%= label :PaidFalse, "Pay cash on the day" %>
+			</div>
+		</div>
+		<div class="row justify-content-center">	
+			<%= form.submit "Confirm payment method", class: "btn btn-primary", style: "margin-left: 10px;" %>
+			<% end %>
+			<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get", style: "margin-left: 10px;" %>
+		</div>
 	</div>
-	  <div class="actions">
-    <%= form.submit "Confirm payment method", class: "btn btn-primary" %>
-	<% end %>
-	<%= button_to 'Cancel', url_for(:back), class: "btn btn-primary", method: "get" %>
-  </div>
+</div>

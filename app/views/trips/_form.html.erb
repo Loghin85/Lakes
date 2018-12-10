@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Name %>
+				<%= form.text_field :Name, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.collection_select(:lake_dests, @lakes, :id, :Name, {:prompt => true, include_hidden: false}, {:multiple => true}) %>
+				<%= form.collection_select(:lake_dests, @lakes, :id, :Name, {:prompt => true, include_hidden: false}, {:multiple => true, :required => true}) %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.date_select :Date %>
+				<%= form.date_select :Date , {:required => true}%>
 			</div>
 		  </div>
 		  <div class="row">
@@ -50,7 +50,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.number_field :AvailablePlaces %>
+				<%= form.number_field :AvailablePlaces , {:value => "20", :required => true}%>
 			</div>
 		</div>	
 		<br>

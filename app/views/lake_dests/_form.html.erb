@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Name %>
+				<%= form.text_field :Name, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Area %>
+				<%= form.number_field :Area, {:value => "0.00", :required => true,step: 0.01} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :District %>
+				<%= form.text_field :District, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -50,7 +50,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Lat %>
+				<%= form.number_field :Lat, {:value => "0.00", :required => true,step: 0.01} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Long %>
+				<%= form.number_field :Long, {:value => "0.00", :required => true,step: 0.01} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -70,7 +70,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :River %>
+				<%= form.text_field :River, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Details_Url %>
+				<%= form.text_field :Details_Url, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Altitude %>
+				<%= form.text_field :Altitude, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -100,7 +100,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Alkalinity %>
+				<%= form.text_field :Alkalinity, {:required => true} %>
 			</div>
 		  </div>
 		  <div class="row">
@@ -110,7 +110,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :Depth %>
+				<%= form.text_field :Depth, {:required => true} %>
 			</div>
 		  </div>
 		<br>

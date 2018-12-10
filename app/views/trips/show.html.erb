@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="row" style="width: 100%; padding: 10px;">
-	<div class="col-12">
+	<div class="col-6">
 		<div class="col-12" style="text-align: center;">
 			<h1><%= @trip.Name %></h1>
 			<br>
@@ -77,14 +77,14 @@ Highcharts.chart('container', {
         enabled: true,
         format: '<b>{point.name}</b>: {point.y}',
         style: {
-          col-6or: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
         }
       }
     }
   },
   series: [{
     name: 'Brands',
-    col-6orByPoint: true,
+    colorByPoint: true,
     data: [{
       name: 'Free',
       y: <%= raw @trip.AvailablePlaces%>,

@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.select :organisation, CreditCard.organisations.keys, prompt: 'Select a card type' %>
+				<%= form.select :organisation, CreditCard.organisations.keys, {prompt: 'Select a card type'}, {:required => true} %>
 			</div>
 		  </div>
 
@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :number %>
+				<%= form.text_field :number , {:required => true}%>
 			</div>
 		  </div>
 
@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.text_field :name_on_card %>
+				<%= form.text_field :name_on_card , {:required => true}%>
 			</div>
 		  </div>
 
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<%= form.collection_select :user_id, @users, :id, :full_name, :prompt => "Select an user" %>
+				<%= form.collection_select :user_id, @users, :id, :full_name, {:prompt => "Select an user"}, {:required => true} %>
 			</div>
 		  </div>
   <%else%>

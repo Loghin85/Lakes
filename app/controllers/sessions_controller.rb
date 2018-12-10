@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
 		if user.activated?
 			log_in user
 			flash[:info] = 'Logged in successfully'
-			p params[:session][:remember_me]
 			if params[:session][:remember_me] == "1"
 				remember(user)
 			else
