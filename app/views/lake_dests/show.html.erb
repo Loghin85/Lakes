@@ -101,6 +101,14 @@
 				<%= @lake_dest.Name %> is one of the many lakes we offer tours to. It is located in the <%= @lake_dest.District %> district, Latitude: <%= @lake_dest.Lat %>,
 				Longitude: <%= @lake_dest.Long %> to be exact. <%if @lake_dest.River%> It is formed by the <%= @lake_dest.River %>.<%end%> It is considered a <%= @lake_dest.Depth %>,
 				<%= @lake_dest.Altitude %>, <%= @lake_dest.Alkalinity %> lake. You can find more details about it <a href="<%= @lake_dest.Details_Url %>">here</a>.
+				<br>
+				<br>
+				<p>Tours we offer for this lake:</p>
+				<ul>
+					<% @lake_dest.trip.each do |trip|%>
+					<li><a class="nounderline" href="/trips/<%=trip.id%>"><%= trip.Name%></a></li>
+					<% end%>
+				</ul>
 			</div>
 		</div>
 
