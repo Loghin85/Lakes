@@ -169,16 +169,17 @@ $(function () {
     var chart = myChart;
     var currentMin = chart.xAxis[0].getExtremes().min;
     var currentMax = chart.xAxis[0].getExtremes().max;
-
-    chart.xAxis[0].setExtremes(currentMin + stepWidth, currentMax + stepWidth);
+	console.log(<%=Trip.count%>);
+	if (currentMax < <%=Trip.count%>)
+		chart.xAxis[0].setExtremes(currentMin + stepWidth, currentMax + stepWidth);
   });
 
   $('#back').click(function() {
     var chart = myChart;
     var currentMin = chart.xAxis[0].getExtremes().min;
     var currentMax = chart.xAxis[0].getExtremes().max;
-
-    chart.xAxis[0].setExtremes(currentMin - stepWidth, currentMax - stepWidth);
+	if (currentMin-stepWidth >= 0)
+		chart.xAxis[0].setExtremes(currentMin - stepWidth, currentMax - stepWidth);
   });
 });
 </script>
